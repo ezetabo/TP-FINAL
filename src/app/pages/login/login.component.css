@@ -1,0 +1,22 @@
+
+
+.texto-claro {
+  color: #020202;
+  font-size: 2.4rem;
+
+}
+
+.texto-claro2 {
+  color: #0a0a0a;
+  font-size: 1.2rem;
+  float: left;
+}
+
+.card {
+  width: 600px;
+transform: scale(1.5);
+  margin: auto;
+  margin-top: 15%;
+  border-radius: 10px;
+}
+
