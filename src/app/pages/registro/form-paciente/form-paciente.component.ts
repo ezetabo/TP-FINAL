@@ -17,13 +17,14 @@ import Swal from 'sweetalert2';
 export class FormPacienteComponent {
 
   public paciente: Paciente = {
+    id:'',
     Nombre: '',
     Apellido: '',
     Edad: 0,
-    DNI: '',
+    Dni: '',
     Email: '',
     Password: '',
-    Imagen1: '',
+    Imagen: '',
     Imagen2: '',
     ObraSocial: ''
   };

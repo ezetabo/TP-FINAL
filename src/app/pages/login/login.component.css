@@ -14,9 +14,9 @@
 
 .card {
   width: 600px;
-transform: scale(1.5);
-  margin: auto;
-  margin-top: 15%;
+transform: scale(1.2);
+margin-left: 25%;
+  margin-top: 10%;
   border-radius: 10px;
 }
 

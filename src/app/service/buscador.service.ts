@@ -17,35 +17,47 @@ export class BuscadorService {
   especialistaByEmail(email: string): Observable<Especialista | false> {
     return new Observable<Especialista | false>((observer) => {
       this.esp.getData().subscribe((todos) => {
-        observer.next(todos.find(x => x.Email == email));
+        const encontrado = todos.find(x => x.Email === email);
+        if (encontrado) {
+          observer.next(encontrado);
+        } else {
+          observer.next(false);
+        }
         observer.complete();
       });
-      observer.next(false);
-      observer.complete();
     });
   }
+
 
   usuarioByEmail(email: string): Observable<Usuario | false> {
     return new Observable<Usuario | false>((observer) => {
       this.user.getData().subscribe((todos) => {
-        observer.next(todos.find(x => x.Email == email));
+        const encontrado = todos.find(x => x.Email === email);
+        if (encontrado) {
+          observer.next(encontrado);
+        } else {
+          observer.next(false);
+        }
         observer.complete();
       });
-      observer.next(false);
-      observer.complete();
     });
   }
+
 
   pacienteByEmail(email: string): Observable<Paciente | false> {
     return new Observable<Paciente | false>((observer) => {
       this.pac.getData().subscribe((todos) => {
-        observer.next(todos.find(x => x.Email == email));
+        const encontrado = todos.find(x => x.Email === email);
+        if (encontrado) {
+          observer.next(encontrado);
+        } else {
+          observer.next(false);
+        }
         observer.complete();
       });
-      observer.next(false);
-      observer.complete();
     });
   }
+
 
 
 

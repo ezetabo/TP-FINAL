@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivateFn} from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from '../service/auth.service';
   providedIn: 'root'
 })
 export class NoAuthGuard {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private rtr: Router) {}
 
   canActivate: CanActivateFn = (): Observable<boolean> | boolean => {
     return new Observable<boolean>((observer) => {
@@ -16,7 +16,6 @@ export class NoAuthGuard {
           observer.next(true);
           observer.complete();
         } else {
-
           observer.next(false);
           observer.complete();
         }

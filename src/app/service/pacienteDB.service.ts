@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Paciente } from '../interface/paciente.interface';
 
@@ -13,8 +13,10 @@ export class PacienteDBService {
 
   constructor(private fs: Firestore) { }
 
-  addData(newData: Paciente):Promise<any> {
-    return addDoc(this.dataRef, newData);
+  addData(newData: Paciente) {
+    const docs = doc(this.dataRef);
+    newData.id = docs.id;
+    setDoc(docs, newData);
   }
 
   getData(): Observable<Paciente[]> {
@@ -30,4 +32,27 @@ export class PacienteDBService {
     });
   }
 
+  modificar(dato: Paciente) {
+    const docs = doc(this.dataRef, dato.id);
+    updateDoc(docs, {
+      Nombre: dato.Nombre,
+      Apellido: dato.Apellido,
+      Edad: dato.Edad,
+      Dni: dato.Dni,
+      ObraSocial: dato.ObraSocial,
+      Email: dato.Email,
+      Password: dato.Password,
+      Imagen: dato.Imagen,
+      Imagen2: dato.Imagen2,
+
+    });
+  }
+
+  borrar(dato:Paciente) {
+    const docs = doc(this.dataRef, dato.id);
+    deleteDoc(docs);
+  }
+
 }
+
+

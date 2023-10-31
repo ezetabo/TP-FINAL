@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { BuscadorService } from 'src/app/service/buscador.service';
 import Swal from 'sweetalert2';
@@ -17,7 +18,7 @@ export class LoginComponent {
     password: ''
   }
 
-  constructor(private authService: AuthService, private bsc: BuscadorService) { }
+  constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router) { }
 
   ingresar(): void {
 
@@ -34,16 +35,15 @@ export class LoginComponent {
             this.bsc.especialistaByEmail(email).subscribe(x =>{
               if(!x  || x.Autorizado){
                 console.log('login Ok');
-                // this.router.navigateByUrl('home');
+                this.rtr.navigateByUrl('home');
               }else{
-                console.log('Falta la aprobacion de un administrador');
+                Swal.fire('Falta la aprobacion de un administrador');
               }
             });
           } else {
             Swal.fire('su email no esta verificado');
           }
         } else {
-          console.log('login error');
           Swal.fire('email o contraseña incorrectos');
         }
       });

@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, onSnapshot, doc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Especialista } from '../interface/especialista.interface';
 
@@ -16,8 +16,10 @@ export class EspecialistaDBService {
 
   constructor(private fs: Firestore) { }
 
-  addData(newData: Especialista):Promise<any> {
-    return addDoc(this.dataRef, newData);
+  addData(newData: Especialista) {
+    const docs = doc(this.dataRef);
+    newData.id = docs.id;
+    setDoc(docs, newData);
   }
 
   getData(): Observable<Especialista[]> {
@@ -35,6 +37,25 @@ export class EspecialistaDBService {
     });
   }
 
+  modificar(dato: Especialista) {
+    const docs = doc(this.dataRef, dato.id);
+    updateDoc(docs, {
+      Nombre: dato.Nombre,
+      Apellido: dato.Apellido,
+      Edad: dato.Edad,
+      Dni: dato.Dni,
+      Email: dato.Email,
+      Password: dato.Password,
+      Imagen: dato.Imagen,
+      Especialidades: dato.Especialidades,
+      Autorizado: dato.Autorizado,
 
+    });
+  }
+
+  borrar(dato:Especialista) {
+    const docs = doc(this.dataRef, dato.id);
+    deleteDoc(docs);
+  }
 
 }

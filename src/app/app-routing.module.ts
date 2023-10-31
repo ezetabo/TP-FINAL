@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
+
     path: '',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
     // canActivate: [NoAuthGuard]
+
   },
   {
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
     // canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+    // canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -27,17 +35,7 @@ const routes: Routes = [
     path: 'registro-especialistas',
     loadChildren: () => import('./pages/registro/form-especialista/form-especialista.module').then(m => m.FormEspecialistaModule),
     // canActivate: [NoAuthGuard]
-  },
-  {
-    path: 'registro-usuarios',
-    loadChildren: () => import('./pages/registro/form-usuario/form-usuario.module').then(m => m.FormUsuarioModule),
-    // canActivate: [NoAuthGuard]
   }
-  // {
-  //     path: '',
-  //     loadChildren: () => import('./pages/registro/form-especialista/form-especialista.module').then(m => m.FormEspecialistaModule),
-  //   // canActivate: [NoAuthGuard]
-  // },
 ];
 
 @NgModule({

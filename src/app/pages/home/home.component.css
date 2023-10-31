@@ -1,0 +1,14 @@
+
+.bton{
+  margin-right: 1rem;
+  border-radius: 50%;
+  background-color: rgba(223, 143, 69, 0.801);
+
+}
+.navbar-nav .nav-item .nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+ background-color: black;
+ color: white;
+ border-radius: 15%;
+}

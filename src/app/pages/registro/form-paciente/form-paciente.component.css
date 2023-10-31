@@ -1,23 +1,26 @@
-#inputFile {
-  display: none;
-}
-#inputFile2 {
-  display: none;
-}
 
-.labelInputFile:active {
-  transform: scale(0.9);
-}
+  #inputFile {
+    display: none;
+  }
 
-.labelInputFile2:active {
-  transform: scale(0.9);
-}
+  #inputFile2 {
+    display: none;
+  }
 
-.imagenes{
-  width: 10rem;
-  height: 10rem;
-}
+  .labelInputFile:active {
+    transform: scale(0.9);
+  }
 
-.row-principal{
-  margin-top: 0%;
-}
+  .labelInputFile2:active {
+    transform: scale(0.9);
+  }
+
+  .imagenes {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .row-principal {
+    margin-top: 0%;
+  }
+

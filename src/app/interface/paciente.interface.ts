@@ -1,11 +1,12 @@
 export interface Paciente {
+  id: string;
   Nombre: string;
   Apellido: string;
   Edad: number;
-  DNI: string;
+  Dni: string;
   ObraSocial: string;
   Email: string;
   Password: string;
-  Imagen1: string;
+  Imagen: string;
   Imagen2: string;
 }

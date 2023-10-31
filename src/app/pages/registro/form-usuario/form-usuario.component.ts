@@ -17,10 +17,11 @@ export class FormUsuarioComponent {
 
 
   public usuario: Usuario = {
+    id:'',
     Nombre: '',
     Apellido: '',
     Edad: 0,
-    DNI: '',
+    Dni: '',
     Email: '',
     Password: '',
     Imagen: '',

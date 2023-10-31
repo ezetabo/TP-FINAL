@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { Observable, from, map } from 'rxjs';
 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(private afAuth: AngularFireAuth, private router: Router) { }
@@ -22,35 +21,27 @@ export class AuthService {
       .catch(() => { return false });
   }
 
-  async registerAdmin(email: string, password: string): Promise<any> {
-    try {
-      return await this.afAuth.createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      return false;
-    }
-  }
-
   async login(email: string, password: string): Promise<any> {
     return await this.afAuth.signInWithEmailAndPassword(email, password)
       .catch(() => { return false });
   }
 
-  loggedIn(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this.afAuth.authState.subscribe(user => {
-        if (user) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      });
+  async loggedIn(): Promise<boolean> {
+    return new Promise<boolean>(async (resolve, reject) => {
+      const user = await this.afAuth.currentUser;
+      if (user) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   }
+
 
   async logout(): Promise<void> {
     return this.afAuth.signOut()
       .then(() => {
-        this.router.navigate(['/logueo']);
+        this.router.navigate(['']);
       })
       .catch((error) => {
         console.error('Error al desloguear:', error);

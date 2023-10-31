@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { WelcomeRoutingModule } from './welcome-routing.module';
-import { WelcomeComponent } from './welcome.component';
+import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from './home.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
-
 @NgModule({
-  declarations: [WelcomeComponent],
+  declarations: [
+    HomeComponent
+  ],
   imports: [
     CommonModule,
-    WelcomeRoutingModule,
+    HomeRoutingModule,
     PipesModule
   ]
 })
-export class WelcomeModule { }
+export class HomeModule { }

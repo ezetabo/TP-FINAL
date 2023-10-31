@@ -20,10 +20,11 @@ export class FormEspecialistaComponent implements OnInit {
   @Input() habilitar: boolean = false;
 
   public especialista: Especialista = {
+    id:'',
     Nombre: '',
     Apellido: '',
     Edad: 0,
-    DNI: '',
+    Dni: '',
     Email: '',
     Password: '',
     Imagen: '',
