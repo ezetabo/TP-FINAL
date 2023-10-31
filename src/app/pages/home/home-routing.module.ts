@@ -6,10 +6,7 @@ const routes: Routes = [
   {
     path:'',component: HomeComponent,
     children: [
-      {
-        path: 'registro',
-        loadChildren: () => import('../registro/form-usuario/form-usuario.module').then(m => m.FormUsuarioModule),
-      },
+
     ]
   }
 ];

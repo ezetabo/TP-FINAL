@@ -1,43 +1,39 @@
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, onSnapshot, doc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Especialista } from '../interface/especialista.interface';
-
-
+import { UsuarioGral } from '../interface/usuario-gral.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EspecialistaDBService {
+export class UsuarioGralDBService {
 
-  private dataRef = collection(this.fs, 'especialistas');
+  private dataRef = collection(this.fs, 'UsuarioGral');
 
   constructor(private fs: Firestore) { }
 
-  addData(newData: Especialista) {
+  addData(newData: UsuarioGral) {
     const docs = doc(this.dataRef);
     newData.id = docs.id;
     setDoc(docs, newData);
   }
 
-  getData(): Observable<Especialista[]> {
-    return new Observable<Especialista[]>((observer) => {
+  getData(): Observable<UsuarioGral[]> {
+    return new Observable<UsuarioGral[]>((observer) => {
       onSnapshot(this.dataRef, (snap) => {
-        const especialistas: Especialista[] = [];
+        const UsuarioGrals: UsuarioGral[] = [];
         snap.docChanges().forEach(x => {
-
-          const one = x.doc.data() as Especialista;
-
-          especialistas.push(one);
+          const one = x.doc.data() as UsuarioGral;
+          UsuarioGrals.push(one);
         });
-        observer.next(especialistas);
+        observer.next(UsuarioGrals);
       });
     });
   }
 
-  modificar(dato: Especialista) {
+  modificar(dato: UsuarioGral) {
     const docs = doc(this.dataRef, dato.id);
     updateDoc(docs, {
       Nombre: dato.Nombre,
@@ -47,15 +43,19 @@ export class EspecialistaDBService {
       Email: dato.Email,
       Password: dato.Password,
       Imagen: dato.Imagen,
+      Rol: dato.Rol,
       Especialidades: dato.Especialidades,
       Autorizado: dato.Autorizado,
-
+      Imagen2: dato.Imagen2,
+      ObraSocial: dato.ObraSocial,
     });
   }
 
-  borrar(dato:Especialista) {
+  borrar(dato:UsuarioGral) {
     const docs = doc(this.dataRef, dato.id);
     deleteDoc(docs);
   }
 
 }
+
+

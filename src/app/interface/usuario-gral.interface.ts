@@ -1,4 +1,4 @@
-export interface Especialista {
+export interface UsuarioGral {
   id: string;
   Nombre: string;
   Apellido: string;
@@ -7,6 +7,10 @@ export interface Especialista {
   Email: string;
   Password: string;
   Imagen: string;
+  Rol: string;
   Especialidades: string[];
-  Autorizado:boolean;
+  Autorizado: boolean;
+  Imagen2: string;
+  ObraSocial: string;
+
 }

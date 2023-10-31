@@ -29,7 +29,7 @@ export class AuthService {
   async loggedIn(): Promise<boolean> {
     return new Promise<boolean>(async (resolve, reject) => {
       const user = await this.afAuth.currentUser;
-      if (user) {
+      if (user && user.emailVerified) {
         resolve(true);
       } else {
         resolve(false);

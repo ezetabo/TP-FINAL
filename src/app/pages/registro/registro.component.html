@@ -1,0 +1,354 @@
+<div class="container">
+  <div class="row row-principal">
+    <div class="col-md-9 p-3"
+      style="background-color: rgb(220, 245, 223); border-radius: 2%; margin-left: 10%;">
+      <h2 style="font-size: 1.5rem;">Registro de {{rol}}</h2>
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+              <div class="col-6">
+                <!-- Nombre -->
+                <div class="mb-3">
+                  <label for="Nombre" class="form-label">Nombre</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="Nombre"
+                    placeholder="Ingrese el Nombre"
+                    id="Nombre">
+
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Nombre')">
+                    Debe ser en formato solo letras
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <!-- Apellido -->
+                <div class="mb-3">
+                  <label for="Apellido" class="form-label">Apellido</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="Apellido"
+                    placeholder="Ingrese el Apellido"
+                    id="Apellido">
+
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Apellido')">
+                    Debe ser en formato solo letras
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-9">
+                <!-- DNI -->
+                <div class="mb-3">
+                  <label for="Dni" class="form-label">DNI</label>
+                  <input type="number"
+                    step="1"
+                    class="form-control"
+                    formControlName="Dni"
+                    placeholder="Ingrese el DNI"
+                    id="Dni">
+
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Dni')">
+                    Debe ser en formato DNI (sin espacios ni guiones, entre 6 y
+                    9 digitos)
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <!-- Edad -->
+                <div class="mb-3">
+                  <label for="Edad" class="form-label">Edad</label>
+                  <input type="number"
+                    class="form-control"
+                    step="1"
+                    formControlName="Edad"
+                    placeholder="Ingrese la Edad"
+                    id="Edad">
+
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Edad')">
+                    Debe ser entre 1 y 120
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="Email" class="form-label">Email</label>
+                  <input type="email"
+                    class="form-control"
+                    formControlName="Email"
+                    placeholder="Ingrese el Email"
+                    id="Email">
+
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Email')">
+                    Debe ser en formato de correo electrónico válido
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="Password" class="form-label">Password</label>
+                  <div class="input-group">
+                    <input type="{{ showPassword ? 'text' : 'password' }}"
+                      class="form-control"
+                      formControlName="Password"
+                      placeholder="Ingrese la contraseña"
+                      id="Password">
+                    <button class="btn btn-outline-secondary" type="button"
+                      (click)="togglePasswordVisibility()">
+                      <i
+                        [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                    </button>
+                  </div>
+                  <span class="form-text text-danger"
+                    *ngIf="isValidField('Password')">
+                    Debe ser una contraseña válida
+                  </span>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div *ngIf="rol">
+              <div class="paciente" *ngIf="rol === 'paciente'">
+                <div class="row mx-3">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="ObraSocial" class="form-label">Obra Social</label>
+                      <select class="form-select" formControlName="ObraSocial">
+                        <option value></option>
+                        <option *ngFor="let opcion of lista" [value]="opcion">
+                          {{ opcion }}
+                        </option>
+                      </select>
+                    </div>
+                    <span class="form-text text-danger"
+                      *ngIf="isValidField('ObraSocial')">
+                      Debe seleccionar una obra social
+                    </span>
+                  </div>
+                </div>
+                <hr>
+                <div class="row justify-content-md-center mx-5">
+                  <div class="col">
+                    <div
+                      class="card d-flex justify-content-center align-items-center p-2"
+                      style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+                      <span class="form-text text-danger"
+                        *ngIf="isValidField('Imagen')">
+                        Debe subir una imagen
+                      </span>
+                      <div class="card-body">
+                        <input type="file" accept=".png, .jpg,.jpeg"
+                          (change)="cargarImagen($event, 1)" id="inputFile">
+                        <label for="inputFile"><img class="imagenes"
+                            [src]="myForm.controls['Imagen'].value"
+                            *ngIf="myForm.controls['Imagen'].value"
+                            alt="./assets/upload-icon-30-1.png"></label>
+                        <label for="inputFile"><img class="imagenes"
+                            src="/assets/upload-icon-30-1.png"
+                            *ngIf="myForm.controls['Imagen'].value == ''"
+                            alt></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div
+                      class="card d-flex justify-content-center align-items-center p-2"
+                      style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+                      <span class="form-text text-danger"
+                        *ngIf="isValidField('Imagen2')">
+                        Debe subir una imagen
+                      </span>
+                      <div class="card-body">
+                        <input type="file" accept=".png, .jpg,.jpeg"
+                          (change)="cargarImagen($event, 2)" id="inputFile2">
+                        <label for="inputFile2"><img class="imagenes"
+                            [src]="myForm.controls['Imagen2'].value"
+                            *ngIf="myForm.controls['Imagen2'].value"
+                            alt="./assets/upload-icon-30-1.png"></label>
+                        <label for="inputFile2"><img class="imagenes"
+                            src="/assets/upload-icon-30-1.png"
+                            *ngIf="myForm.controls['Imagen2'].value == ''"
+                            alt></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="especialista" *ngIf="rol == 'especialista'">
+                <div class="row mx-5">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label for="Especialidades" class="form-label">Especialidades</label>
+                      <select class="mt-2" size=7
+                        (change)="agregarEspecialidad($event) ">
+                        <option *ngFor="let opcion of lista" [value]="opcion">{{
+                          opcion }}</option>
+                      </select>
+
+                    </div>
+                  </div>
+
+                  <div class="col-8">
+                    <div class="mb-3">
+                      <!-- Lista -->
+                      <div class="mt-5 row">
+                        <div formArrayName="Especialidades">
+                          <div class="mb-1 col-6"
+                            *ngFor="let fav of Especialidades.controls; let i = index">
+                            <div class="input-group">
+                              <input [formControlName]="i" class="form-control"
+                                readonly>
+                              <button (click)="onDeleteEspecialidades(i)"
+                                class="btn btn-outline-danger" type="button">Eliminar</button>
+                            </div>
+                          </div>
+                          <span class="form-text text-danger"
+                            *ngIf="isValidField('Especialidades')">
+                            Por favor, agregue al menos una especialidad.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="d-flex">
+                        <input class="form-control"
+                          [formControl]="otra"
+                          placeholder="agregar faltante">
+                        <button (click)="agregarOtraEspecialidad()"
+                          class="btn btn-outline-info" type="button">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-left: 35%;">
+
+                  <div class="col">
+                    <div
+                      class="card d-flex justify-content-center align-items-center p-2"
+                      style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+                      <span class="form-text text-danger"
+                        *ngIf="isValidField('Imagen')">
+                        Debe subir una imagen
+                      </span>
+
+                      <div class="card-body">
+                        <input type="file" accept=".png, .jpg,.jpeg"
+                          (change)="cargarImagen($event,1)" id="inputFile">
+
+                        <label for="inputFile"><img class="imagenes"
+                            [src]="myForm.controls['Imagen'].value"
+                            *ngIf="myForm.controls['Imagen'].value"
+                            alt="./assets/upload-icon-30-1.png"> </label>
+
+                        <label for="inputFile"> <img class="imagenes"
+                            src="/assets/upload-icon-30-1.png"
+                            *ngIf="myForm.controls['Imagen'].value == ''"
+                            alt></label>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row mb-3" *ngIf="habilitar">
+                  <hr>
+                  <div class="col">
+                    <label class="col-sm-3 col-form-label">Autorizado</label>
+                    <div class="form-check form-switch mt-2">
+                      <input class="form-check-input"
+                        type="checkbox"
+                        formControlName="Autorizado"
+                        id="flexSwitchCheckChecked">
+                      <label class="form-check-label"
+                        for="flexSwitchCheckChecked">SI</label>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="admin" *ngIf="rol == 'admin'">
+                <div class="row">
+                  <div class="col-6">
+                    <!-- Autorizado -->
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Autorizado</label>
+                      <div class="col-sm-9">
+
+                        <div class="form-check form-switch mt-2">
+                          <input class="form-check-input"
+                            type="checkbox"
+                            formControlName="Autorizado"
+                            id="flexSwitchCheckChecked">
+                          <label class="form-check-label"
+                            for="flexSwitchCheckChecked">SI</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+
+                <div class="row" style="margin-left: 35%;">
+                  <div class="col">
+                    <div
+                      class="card d-flex justify-content-center align-items-center p-2"
+                      style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+                      <span class="form-text text-danger"
+                        *ngIf="isValidField('Imagen')">
+                        Debe subir una imagen
+                      </span>
+                      <div class="card-body">
+                        <input type="file" accept=".png, .jpg,.jpeg"
+                          (change)="cargarImagen($event,1)" id="inputFile">
+                        <label for="inputFile"><img class="imagenes"
+                            [src]="myForm.controls['Imagen'].value"
+                            *ngIf="myForm.controls['Imagen'].value"
+                            alt="./assets/upload-icon-30-1.png"> </label>
+                        <label for="inputFile"> <img class="imagenes"
+                            src="/assets/upload-icon-30-1.png"
+                            *ngIf="myForm.controls['Imagen'].value == ''"
+                            alt></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row mt-3">
+              <hr>
+              <button class="btn btn-success btn-block" type="submit"
+                style="font-size: 1rem;">Crear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

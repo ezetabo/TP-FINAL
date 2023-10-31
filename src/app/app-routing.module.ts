@@ -8,34 +8,29 @@ const routes: Routes = [
 
     path: '',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
-    // canActivate: [NoAuthGuard]
-
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
-    // canActivate: [NoAuthGuard]
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
-    // canActivate: [NoAuthGuard]
+    canActivate: [NoAuthGuard]
   },
   {
-    path: 'registro-pacientes',
-    loadChildren: () => import('./pages/registro/form-paciente/form-paciente.module').then(m => m.FormPacienteModule),
-    // canActivate: [NoAuthGuard]
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then(m => m.UsuariosGralModule),
+    canActivate: [NoAuthGuard]
   },
-  {
-    path: 'registro-especialistas',
-    loadChildren: () => import('./pages/registro/form-especialista/form-especialista.module').then(m => m.FormEspecialistaModule),
-    // canActivate: [NoAuthGuard]
-  }
+
 ];
 
 @NgModule({
