@@ -32,6 +32,7 @@ export class AuthService {
       if (user && user.emailVerified) {
         resolve(true);
       } else {
+        this.afAuth.signOut();
         resolve(false);
       }
     });
@@ -41,7 +42,7 @@ export class AuthService {
   async logout(): Promise<void> {
     return this.afAuth.signOut()
       .then(() => {
-        this.router.navigate(['']);
+        this.router.navigateByUrl('welcome')
       })
       .catch((error) => {
         console.error('Error al desloguear:', error);

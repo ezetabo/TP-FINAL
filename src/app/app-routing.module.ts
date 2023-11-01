@@ -5,7 +5,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-
     path: '',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
     canActivate: [NoAuthGuard]
@@ -29,7 +28,10 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./pages/registro/registro.module').then(m => m.UsuariosGralModule),
     canActivate: [NoAuthGuard]
-  },
+  }
+  // {
+  //   path:'', loadChildren: () => import('./pages/seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule),
+  // }
 
 ];
 

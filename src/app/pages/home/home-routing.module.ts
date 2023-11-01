@@ -6,7 +6,10 @@ const routes: Routes = [
   {
     path:'',component: HomeComponent,
     children: [
-
+      {
+        path: 'seccion-usuarios',
+        loadChildren: () => import('../seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule)
+      },
     ]
   }
 ];

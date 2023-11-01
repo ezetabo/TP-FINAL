@@ -1,0 +1,26 @@
+
+#inputFile {
+  display: none;
+}
+
+#inputFile2 {
+  display: none;
+}
+
+.labelInputFile:active {
+  transform: scale(0.9);
+}
+
+.labelInputFile2:active {
+  transform: scale(0.9);
+}
+
+.imagenes {
+  width: 10rem;
+  height: 10rem;
+}
+
+.row-principal {
+  margin-top: 0%;
+}
+

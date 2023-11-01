@@ -1,3 +1,5 @@
+import { UsuarioGral } from "../interface/usuario-gral.interface";
+
 export function getEspecialidad(): string[] {
 
   return [
@@ -68,11 +70,25 @@ export function getObrasSociales(): string[] {
   ];
 }
 
-export function ordenarString(paises: string[]): string[] {
-  return paises.sort((a, b) => {
+export function ordenarString(palabras: string[]): string[] {
+  return palabras.sort((a, b) => {
     const A = (a && a[0]) ? a[0].toLowerCase() : '';
     const B = (b && b[0]) ? b[0].toLowerCase() : '';
 
+    if (A < B) {
+      return -1;
+    }
+    if (A > B) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+export function sortByApellido(usuarios: UsuarioGral[]): UsuarioGral[] {
+  return usuarios.sort((a, b) => {
+    const A = (a && a.Apellido) ? a.Apellido.toLowerCase() : '';
+    const B = (b && b.Apellido) ? b.Apellido.toLowerCase() : '';
     if (A < B) {
       return -1;
     }

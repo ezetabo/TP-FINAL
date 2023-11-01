@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegistroRoutingModule } from './registro-routing.module';
 import { RegistroComponent } from './registro.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormUsuarioModule } from 'src/app/modules/form-usuario/form-usuario.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RegistroRoutingModule,
-    ReactiveFormsModule
+    FormUsuarioModule
   ]
 })
 export class UsuariosGralModule { }

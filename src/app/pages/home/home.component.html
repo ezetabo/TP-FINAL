@@ -9,9 +9,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" *ngIf="usuario.Rol == 'amin'">
-          <a class="nav-link" routerLink="registro" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">Alta usuarios</a>
+        <li class="nav-item" *ngIf="usuario.Rol == 'admin'">
+          <a class="nav-link" routerLink="seccion-usuarios" routerLinkActive="active"
+           >Seccion usuarios</a>
         </li>
 
       </ul>
@@ -30,7 +30,7 @@
     </div>
   </div>
 </nav>
-<div style="margin-top: 10px;" class="container">
+<div style="margin-top: 10px; background-color: blanchedalmond;" >
 
   <router-outlet></router-outlet>
 </div>

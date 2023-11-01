@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ordenarString } from 'src/app/utils/listas';
+import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
+import { sortByApellido } from 'src/app/utils/listas';
 
 @Component({
   selector: 'app-tabla',
@@ -7,9 +8,9 @@ import { ordenarString } from 'src/app/utils/listas';
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent {
-  @Output() public opcion = new EventEmitter<string>();
-  @Input() lista: string[] = [];
-  @Input() titulo: string = '';
+  @Output() public opcion = new EventEmitter<UsuarioGral>();
+  @Input() lista: UsuarioGral[] = [];
+  @Input() tipo:string='';
 
 
   constructor() { }
@@ -19,10 +20,10 @@ export class TablaComponent {
   }
 
   ordenar() {
-    this.lista = ordenarString(this.lista);
+    this.lista = sortByApellido(this.lista);
   }
 
-  getOpcion(opcion: string) {
+  getOpcion(opcion: UsuarioGral) {
     this.opcion.emit(opcion);
   }
 }

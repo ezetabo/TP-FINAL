@@ -8,6 +8,7 @@ import { TablaComponent } from './tabla.component';
   declarations: [TablaComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports:[TablaComponent]
 })
 export class TablaModule { }

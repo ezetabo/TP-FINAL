@@ -9,13 +9,11 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat'
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MenuComponent } from './components/menu/menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
   ],
   imports: [
     BrowserModule,

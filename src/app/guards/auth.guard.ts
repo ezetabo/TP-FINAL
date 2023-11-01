@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { AuthService } from '../service/auth.service';
 })
 
 export class AuthGuard {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) { }
 
   canActivate: CanActivateFn = (): Observable<boolean> | boolean => {
     return new Observable<boolean>((observer) => {
