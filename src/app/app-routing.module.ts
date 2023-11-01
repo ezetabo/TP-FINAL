@@ -28,7 +28,11 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./pages/registro/registro.module').then(m => m.RegistroModule),
     canActivate: [NoAuthGuard]
-  }
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/error/error-page.module').then(m => m.ErrorPageModule),
+  },
   // {
   //   path:'', loadChildren: () => import('./pages/seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule),
   // }

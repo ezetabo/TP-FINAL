@@ -32,7 +32,7 @@ export class AuthService {
       if (user && user.emailVerified) {
         resolve(true);
       } else {
-        this.afAuth.signOut();
+       this.afAuth.signOut();
         resolve(false);
       }
     });

@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { UsuarioGralDBService } from 'src/app/service/usuarioGralDB.service';
 import Swal from 'sweetalert2';
-import { LoginRoutingModule } from '../login/login-routing.module';
 
 
 @Component({
