@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
 
   navegar(url: string): void {
     this.msj.enviarDato(url);
+    this.msj.enviarLogueo(this.usuario.Email,this.usuario.Password);
     this.msj.enviarRoute('home');
     this.rtr.navigateByUrl('home/alta-usuarios');
   }
