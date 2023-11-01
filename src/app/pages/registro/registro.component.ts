@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { UsuarioGralDBService } from 'src/app/service/usuarioGralDB.service';
 import Swal from 'sweetalert2';
+import { LoginRoutingModule } from '../login/login-routing.module';
 
 
 @Component({
@@ -44,14 +45,14 @@ export class RegistroComponent implements OnInit {
             Swal.fire(
               'No olvide verificar su email'
             )
+            if(this.msj.mantener()){
+              this.auth.login(this.msj.leerEmail(),this.msj.leerPass());}
+              const ruta = this.msj.leerRoute() == '' ? 'welcome' : this.msj.leerRoute()
+              this.rtr.navigateByUrl(ruta);
+              this.msj.enviarRoute('');
+              this.msj.reset();
           }
         })
-        if(this.msj.mantener()){
-        this.auth.login(this.msj.leerEmail(),this.msj.leerPass());}
-        const ruta = this.msj.leerRoute() == '' ? 'welcome' : this.msj.leerRoute()
-        this.rtr.navigateByUrl(ruta);
-        this.msj.enviarRoute('');
-        this.msj.reset();
       } else {
         Swal.fire({
           position: 'center',
