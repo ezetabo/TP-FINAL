@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { BuscadorService } from 'src/app/service/buscador.service';
 import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
+import { MensajeroService } from 'src/app/service/mensajero.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   public usuario!: UsuarioGral;
 
-  constructor(private auth: AuthService, private bsc: BuscadorService) { }
+  constructor(private auth: AuthService, private bsc: BuscadorService, private msj: MensajeroService,
+    private rtr: Router) { }
 
 
   ngOnInit(): void {
@@ -33,7 +36,11 @@ export class HomeComponent implements OnInit {
   }
 
 
-
+  navegar(url: string): void {
+    this.msj.enviarDato(url);
+    this.msj.enviarRoute('home');
+    this.rtr.navigateByUrl('home/alta-usuarios');
+  }
 
 
 

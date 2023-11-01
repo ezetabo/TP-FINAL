@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'registro',
-    loadChildren: () => import('./pages/registro/registro.module').then(m => m.UsuariosGralModule),
+    loadChildren: () => import('./pages/registro/registro.module').then(m => m.RegistroModule),
     canActivate: [NoAuthGuard]
   }
   // {

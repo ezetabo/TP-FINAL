@@ -16,4 +16,4 @@ import { FormUsuarioModule } from 'src/app/modules/form-usuario/form-usuario.mod
     FormUsuarioModule
   ]
 })
-export class UsuariosGralModule { }
+export class RegistroModule { }

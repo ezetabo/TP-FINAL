@@ -11,7 +11,7 @@ export class SeccionUsuariosComponent {
   public usuarios: UsuarioGral[] = [];
   public tiposUsuarios: string[] = ['admin', 'paciente', 'especialista']
   public usuario?: UsuarioGral;
-  public selectedTipo?: string;
+  public selectedTipo: string ='';
 
   constructor(private usS: UsuarioGralDBService) { }
 

@@ -46,7 +46,9 @@ export class RegistroComponent implements OnInit {
             )
           }
         })
-        this.rtr.navigateByUrl('welcome');
+        const ruta = this.msj.leerRoute() == '' ? 'welcome' : this.msj.leerRoute()
+        this.rtr.navigateByUrl(ruta);
+        this.msj.enviarRoute('');
       } else {
         Swal.fire({
           position: 'center',

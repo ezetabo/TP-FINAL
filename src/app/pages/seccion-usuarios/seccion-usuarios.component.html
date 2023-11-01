@@ -1,21 +1,25 @@
-<hr>
-<div class="row">
-  <div class="col text-center">
-    <!-- SerchBox -->
-    <button *ngFor="let tipo of tiposUsuarios"
-    class="btn mx-2"
-    [ngClass]="{'btn-outline-primary': selectedTipo === tipo}"
-    (click)="searchByTipo(tipo)"
-    >
-      {{tipo}}
-    </button>
-  </div>
-
+<div class="container " style="background-color: bisque; height: 100vh;">
   <div class="row">
-    <div class="col">
-      <hr>
-      <app-tabla [lista]="usuarios" [tipo]="selectedTipo!" (opcion)="getUsuario($event)"></app-tabla>
-    </div>
-  </div>
 
+    <div class="col text-center" style="background-color: rgb(176, 190, 190);">
+      <hr>
+      <button *ngFor="let tipo of tiposUsuarios"
+        class="btn mx-2"
+        [ngClass]="{'btn-outline-primary': selectedTipo === tipo}"
+        (click)="searchByTipo(tipo)">
+        {{tipo}}
+      </button>
+      <hr>
+    </div>
+
+    <div class="row">
+      <hr>
+
+      <div class="col " style="margin-left: 3%;">
+        <app-tabla [lista]="usuarios" [tipo]="selectedTipo!"
+          (opcion)="getUsuario($event)"></app-tabla>
+      </div>
+    </div>
+
+  </div>
 </div>

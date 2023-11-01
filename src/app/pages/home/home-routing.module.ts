@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { IsAdminGuard } from 'src/app/guards/is-admin.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,13 @@ const routes: Routes = [
     children: [
       {
         path: 'seccion-usuarios',
-        loadChildren: () => import('../seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule)
+        loadChildren: () => import('../seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule),
+        canActivate:[IsAdminGuard]
+      },
+      {
+        path: 'alta-usuarios',
+        loadChildren: () => import('../registro/registro.module').then(m => m.RegistroModule),
+        canActivate:[IsAdminGuard]
       },
     ]
   }
