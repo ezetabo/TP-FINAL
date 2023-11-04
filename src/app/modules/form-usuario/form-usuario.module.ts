@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormUsuarioComponent } from './form-usuario.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
 
@@ -9,7 +10,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [FormUsuarioComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   exports:[
     FormUsuarioComponent

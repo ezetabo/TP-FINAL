@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UsuarioGral } from '../interface/usuario-gral.interface';
 

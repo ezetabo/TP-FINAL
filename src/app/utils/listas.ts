@@ -1,3 +1,4 @@
+import { Lista } from "../interface/listas.interface";
 import { UsuarioGral } from "../interface/usuario-gral.interface";
 
 export function getEspecialidad(): string[] {
@@ -74,6 +75,21 @@ export function ordenarString(palabras: string[]): string[] {
   return palabras.sort((a, b) => {
     const A = (a && a[0]) ? a[0].toLowerCase() : '';
     const B = (b && b[0]) ? b[0].toLowerCase() : '';
+
+    if (A < B) {
+      return -1;
+    }
+    if (A > B) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+export function ordenarLista(palabras: Lista[]): Lista[] {
+  return palabras.sort((a, b) => {
+    const A = (a && a.nombre) ? a.nombre.toLowerCase() : '';
+    const B = (b && b.nombre) ? b.nombre.toLowerCase() : '';
 
     if (A < B) {
       return -1;

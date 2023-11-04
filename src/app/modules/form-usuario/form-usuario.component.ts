@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Lista } from 'src/app/interface/listas.interface';
 import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
-import { MensajeroService } from 'src/app/service/mensajero.service';
+import { EspcialidadDBService } from 'src/app/service/espcialidadDB.service';
+import { ObraSocialDBService } from 'src/app/service/obraSocialDB.service';
 import { StorageService } from 'src/app/service/storage.service';
-import { getEspecialidad, getObrasSociales } from 'src/app/utils/listas';
+import { ordenarLista } from 'src/app/utils/listas';
 import { ValidatorsService } from 'src/app/validators/validators.service';
 import Swal from 'sweetalert2';
 
@@ -31,12 +33,14 @@ export class FormUsuarioComponent implements OnInit {
     Imagen2: '',
     ObraSocial: '',
   };
+
   @Output() public getUsuario = new EventEmitter<UsuarioGral>();
 
 
 
   public showPassword: boolean = false;
-  public lista: string[] = [];
+  public listaObs: Lista[] = [];
+  public listaEsp: Lista[] = [];
   public otra: FormControl = new FormControl('', Validators.required);
 
   public myForm: FormGroup = this.fb.group({
@@ -48,25 +52,23 @@ export class FormUsuarioComponent implements OnInit {
     Password: ['', [Validators.required]],
     Imagen: ['', [Validators.required]],
     Especialidades: this.fb.array([], [Validators.required, Validators.minLength(1)]),
-    Autorizado: [true, [Validators.required]],
     Imagen2: ['', [Validators.required]],
     ObraSocial: ['', [Validators.required]],
   });
 
 
-  constructor(private fb: FormBuilder, private vs: ValidatorsService, private storageService: StorageService) { }
+  constructor(private fb: FormBuilder, private vs: ValidatorsService, private storageService: StorageService,
+    private espDB: EspcialidadDBService, private obrasDB: ObraSocialDBService) { }
 
   ngOnInit(): void {
 
     if (this.rol == 'paciente') {
-      this.lista = getObrasSociales();
+      this.cargarObras();
       this.myForm.get('Especialidades')!.clearValidators();
-      this.myForm.get('Autorizado')!.clearValidators();
     } else if (this.rol == 'especialista') {
-      this.lista = getEspecialidad();
+      this.cargarEspcialidades()
       this.myForm.get('Imagen2')!.clearValidators();
       this.myForm.get('ObraSocial')!.clearValidators();
-      this.myForm.controls['Autorizado'].setValue(false);
     } else if (this.rol == 'admin') {
       this.myForm.get('Imagen2')!.clearValidators();
       this.myForm.get('ObraSocial')!.clearValidators();
@@ -78,10 +80,10 @@ export class FormUsuarioComponent implements OnInit {
   onSubmit() {
     if (this.myForm.valid) {
       this.getUsuarioClick();
-      this.myForm.reset();
-        this.myForm.controls['Imagen'].setValue('');
-        this.myForm.controls['Imagen2'].setValue('');
-        this.Especialidades.reset();
+      this.myForm.controls['Imagen'].setValue('');
+      this.myForm.controls['Imagen2'].setValue('');
+      this.Especialidades.reset();
+      this.myForm.reset(this.usuarioGral);
     } else {
       this.myForm.markAllAsTouched();
       return;
@@ -126,6 +128,10 @@ export class FormUsuarioComponent implements OnInit {
     const especialidades = this.Especialidades.value.map((valor: string) => valor.toLowerCase());
     if (!especialidades.includes(otraValue)) {
       this.Especialidades.push(new FormControl(this.otra.value));
+      if(!this.listaEsp.find(x => x.nombre.toLowerCase() ==  this.otra.value.toLowerCase())){
+        this.espDB.addData({ id: '', nombre: this.otra.value });
+      }
+      this.cargarEspcialidades();
     } else {
       Swal.fire({
         position: 'center',
@@ -154,6 +160,25 @@ export class FormUsuarioComponent implements OnInit {
   getUsuarioClick() {
     this.usuarioGral = this.myForm.value;
     this.usuarioGral.Rol = this.rol;
+    if(this.rol == 'especialista'){
+      this.usuarioGral.Autorizado = false;
+    }
     this.getUsuario.emit(this.usuarioGral);
+    this.myForm.controls['Imagen'].setValue('');
+    this.myForm.controls['Imagen2'].setValue('');
+    this.Especialidades.reset();
+    this.myForm.reset(this.usuarioGral);
+  }
+
+  cargarObras() {
+    this.obrasDB.getData().subscribe(x => {
+      this.listaObs = ordenarLista(x)
+    });
+  }
+
+  cargarEspcialidades() {
+    this.espDB.getData().subscribe(x => {
+      this.listaEsp = ordenarLista(x)
+    });
   }
 }

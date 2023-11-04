@@ -11,7 +11,7 @@ export class BuscadorService {
 
   constructor(private usg: UsuarioGralDBService) { }
 
-  byEmail(email: string): Observable<UsuarioGral | false> {
+  userByEmail(email: string): Observable<UsuarioGral | false> {
     return new Observable<UsuarioGral | false>((observer) => {
       this.usg.getData().subscribe((todos) => {
         const encontrado = todos.find(x => x.Email === email);

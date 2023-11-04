@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.getUserEmail().subscribe(x => {
-      this.bsc.byEmail(x!).subscribe(user => this.usuario = user as UsuarioGral)
+      this.bsc.userByEmail(x!).subscribe(user => this.usuario = user as UsuarioGral)
     })
   }
 
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.msj.enviarLogueo(this.usuario.Email,this.usuario.Password);
     this.msj.enviarRoute('home');
     this.rtr.navigateByUrl('home/alta-usuarios');
+
   }
 
 

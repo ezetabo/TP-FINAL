@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CapitalizeFirstLetterPipe } from './capitalize-first-letter.pipe';
+import { CapitalizeFLPipe } from './capitalizeFL.pipe';
 
 
 
 @NgModule({
-  declarations: [CapitalizeFirstLetterPipe],
+  declarations: [CapitalizeFLPipe],
   imports: [
     CommonModule
   ],
   exports:[
-    CapitalizeFirstLetterPipe
+    CapitalizeFLPipe
   ]
 })
 export class PipesModule { }

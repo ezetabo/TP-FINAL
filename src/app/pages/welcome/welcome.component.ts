@@ -17,7 +17,7 @@ export class WelcomeComponent {
       const dato = url == 'paciente' ? 'paciente' : 'especialista';
       this.msj.enviarDato(dato);
       this.rtr.navigateByUrl('registro');
-    }else{
+    } else {
       this.rtr.navigateByUrl('login');
 
     }

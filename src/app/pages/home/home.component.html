@@ -31,9 +31,8 @@
         (click)="verUser()"
         *ngIf="usuario">
         <span *ngIf="ver" class="mx-2">
-          {{ usuario.Apellido | capitalizeFirstLetter }}
-          {{usuario.Nombre | capitalizeFirstLetter}} {{'-'}} {{ usuario.Rol |
-          capitalizeFirstLetter}}</span> </i>
+          {{ usuario.Apellido | cFL }}
+          {{usuario.Nombre | cFL}} {{'-'}} {{ usuario.Rol | cFL}}</span> </i>
       <button class="bton btn">
         <i class="pi pi-power-off p-1" style="font-size:1.5rem"
           (click)="logout()"></i>

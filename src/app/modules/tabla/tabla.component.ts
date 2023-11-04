@@ -8,7 +8,9 @@ import { sortByApellido } from 'src/app/utils/listas';
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent {
+
   @Output() public opcion = new EventEmitter<UsuarioGral>();
+
   @Input() lista: UsuarioGral[] = [];
   @Input() tipo:string='';
 

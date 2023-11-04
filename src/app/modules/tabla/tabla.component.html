@@ -3,60 +3,64 @@
     <div class="col">
       <div *ngIf="lista.length === 0; else table"
         class="alert alert-warning text-center">
-       seleccione un tipo de usuario para mostrar.
+        Seleccione un tipo de usuario para mostrar.
       </div>
 
       <ng-template #table>
         <div class="table-container">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Imagen</th>
-                <th>Apellido</th>
-                <th>Nombre</th>
-                <th>Edad</th>
-                <th>Dni</th>
-                <th>Email</th>
-                <th>Autorizado</th>
-                <th>Rol</th>
-                <th *ngIf="tipo == 'paciente'">Imagen2</th>
-                <th *ngIf="tipo == 'paciente'">ObraSocial</th>
-                <th *ngIf="tipo == 'especialista'">Especialidades</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let usuario of lista; let i = index"
-                (click)="getOpcion(usuario)">
-                <td [ngClass]="getRowClass(i)">{{ i + 1 }}</td>
-                <td [ngClass]="getRowClass(i)">
-                  <img [src]="usuario.Imagen" alt="Imagen de usuario"  class="imagen">
-                </td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Apellido }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Nombre }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Edad }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Dni }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Email }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Autorizado ? 'si':'no' }}</td>
-                <td [ngClass]="getRowClass(i)">{{ usuario.Rol }}</td>
-                <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'paciente'">
-                  <img [src]="usuario.Imagen2" alt="Imagen de usuario" class="imagen">
-                </td>
-                <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'paciente'">{{
-                  usuario.ObraSocial }}
-                </td>
-                <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'especialista'">
-                  <ul>
-                    <li *ngFor="let especialidad of usuario.Especialidades">{{
-                      especialidad }}</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <!-- Agregamos la clase table-responsive -->
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Imagen</th>
+                  <th>Apellido</th>
+                  <th>Nombre</th>
+                  <th>Edad</th>
+                  <th>Dni</th>
+                  <th>Email</th>
+                  <th>Autorizado</th>
+                  <th>Rol</th>
+                  <th *ngIf="tipo == 'paciente'">Imagen2</th>
+                  <th *ngIf="tipo == 'paciente'">ObraSocial</th>
+                  <th *ngIf="tipo == 'especialista'">Especialidades</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let usuario of lista; let i = index"
+                  (click)="getOpcion(usuario)">
+                  <td [ngClass]="getRowClass(i)">{{ i + 1 }}</td>
+                  <td [ngClass]="getRowClass(i)">
+                    <img [src]="usuario.Imagen" alt="Imagen de usuario"
+                      class="imagen">
+                  </td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Apellido }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Nombre }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Edad }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Dni }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Email }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Autorizado ? 'si':'no'
+                    }}</td>
+                  <td [ngClass]="getRowClass(i)">{{ usuario.Rol }}</td>
+                  <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'paciente'">
+                    <img [src]="usuario.Imagen2" alt="Imagen de usuario"
+                      class="imagen">
+                  </td>
+                  <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'paciente'">{{
+                    usuario.ObraSocial }}</td>
+                  <td [ngClass]="getRowClass(i)" *ngIf="tipo == 'especialista'">
+                    <ul>
+                      <li *ngFor="let especialidad of usuario.Especialidades">{{
+                        especialidad }}</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </ng-template>
-
     </div>
   </div>
 </div>

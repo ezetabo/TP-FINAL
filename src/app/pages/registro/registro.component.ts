@@ -61,7 +61,7 @@ export class RegistroComponent implements OnInit {
           timer: 1500
         })
       }
-    });
+    }).catch();
   }
 
 }

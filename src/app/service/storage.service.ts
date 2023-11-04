@@ -22,4 +22,14 @@ export class StorageService {
       return null;
     }
   }
+
+  async subirImagenMRKDW(nombre: string, imgBase64: any) {
+    try {
+      let respuesta = await this.storareRef.child("MRKDWN/" + nombre).putString(imgBase64, 'data_url');
+      return await respuesta.ref.getDownloadURL();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
 }

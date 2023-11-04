@@ -32,7 +32,7 @@ export class LoginComponent {
       .then(res => {
         if (res) {
           if (res.user.emailVerified) {
-            this.bsc.byEmail(email).subscribe(x =>{
+            this.bsc.userByEmail(email).subscribe(x =>{
               if(!x  || x.Autorizado){
                 console.log('login Ok');
                 this.rtr.navigateByUrl('home');

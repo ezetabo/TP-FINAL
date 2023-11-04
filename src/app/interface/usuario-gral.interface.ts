@@ -1,3 +1,5 @@
+import { Lista } from "./listas.interface";
+
 export interface UsuarioGral {
   id: string;
   Nombre: string;
@@ -8,7 +10,7 @@ export interface UsuarioGral {
   Password: string;
   Imagen: string;
   Rol: string;
-  Especialidades: string[];
+  Especialidades: Lista[];
   Autorizado: boolean;
   Imagen2: string;
   ObraSocial: string;
