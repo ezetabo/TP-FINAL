@@ -2,3 +2,22 @@
   height: 50px;
   width: 50px;
 }
+.even-row {
+  background-color: rgb(242, 242, 242);
+}
+
+.odd-row {
+  background-color: rgb(255, 255, 255);
+}
+table {
+  max-height: 580px;
+  overflow-y: auto;
+  display: block;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}

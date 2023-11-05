@@ -18,6 +18,11 @@ const routes: Routes = [
         canActivate: [IsAdminGuard]
       },
       {
+        path: 'cargar-horario',
+        loadChildren: () => import('../horarios/horarios.module').then(m => m.HorariosModule),
+        // canActivate: [IsAdminGuard]
+      },
+      {
         path: '**',
         redirectTo: 'home',
       }

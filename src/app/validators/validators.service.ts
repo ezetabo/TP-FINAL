@@ -39,7 +39,23 @@ export class ValidatorsService {
     };
   }
 
+  public isValidHourRange(startHour: string, endHour: string): { [key: string]: any } | null {
+    if (startHour && endHour) {
+      const startHourParts = startHour.split(':');
+      const endHourParts = endHour.split(':');
 
+      const startHourNum = parseInt(startHourParts[0]);
+      const startMinutesNum = parseInt(startHourParts[1]);
+
+      const endHourNum = parseInt(endHourParts[0]);
+      const endMinutesNum = parseInt(endHourParts[1]);
+
+      if (endHourNum > startHourNum || (endHourNum === startHourNum && endMinutesNum > startMinutesNum)) {
+        return null;
+      }
+    }
+    return { 'rangoInvalido': { value: { startHour, endHour } } };
+  }
 
 
   public integerValidator(): Validators {

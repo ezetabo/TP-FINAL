@@ -128,7 +128,7 @@ export class FormUsuarioComponent implements OnInit {
     const especialidades = this.Especialidades.value.map((valor: string) => valor.toLowerCase());
     if (!especialidades.includes(otraValue)) {
       this.Especialidades.push(new FormControl(this.otra.value));
-      if(!this.listaEsp.find(x => x.nombre.toLowerCase() ==  this.otra.value.toLowerCase())){
+      if (!this.listaEsp.find(x => x.nombre.toLowerCase() == this.otra.value.toLowerCase())) {
         this.espDB.addData({ id: '', nombre: this.otra.value });
       }
       this.cargarEspcialidades();
@@ -160,9 +160,9 @@ export class FormUsuarioComponent implements OnInit {
   getUsuarioClick() {
     this.usuarioGral = this.myForm.value;
     this.usuarioGral.Rol = this.rol;
-    if(this.rol == 'especialista'){
-      this.usuarioGral.Autorizado = false;
-    }
+    console.log(this.rol);
+
+    this.usuarioGral.Autorizado = this.rol == 'especialista' ? false : true;
     this.getUsuario.emit(this.usuarioGral);
     this.myForm.controls['Imagen'].setValue('');
     this.myForm.controls['Imagen2'].setValue('');

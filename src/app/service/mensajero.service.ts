@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UsuarioGral } from '../interface/usuario-gral.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,42 +11,66 @@ export class MensajeroService {
   private email: string = '';
   private pass: string = '';
   private mant: boolean = false;
+  private currentUser: UsuarioGral= {
+    id: '',
+    Nombre: '',
+    Apellido: '',
+    Edad: 0,
+    Dni: '',
+    Email: '',
+    Password: '',
+    Imagen: '',
+    Rol: '',
+    Especialidades: [],
+    Autorizado: true,
+    Imagen2: '',
+    ObraSocial: '',
+  };
 
-  enviarRoute(dato: string) {
+  public enviarRoute(dato: string) {
     this.route = dato;
   }
 
-  leerRoute(): string {
+  public leerRoute(): string {
     return this.route;
   }
-  enviarDato(dato: string) {
+  public enviarDato(dato: string) {
     this.datoSource = dato;
   }
 
-  leerDato(): string {
+  public leerDato(): string {
     return this.datoSource;
   }
 
-  enviarLogueo(email: string, pass: string) {
+  public enviarLogueo(email: string, pass: string) {
     this.email = email;
     this.pass = pass;
     this.mant = true;
   }
 
-  reset() {
+  public reset() {
     this.email = '';
     this.pass = '';
     this.mant = false;
+    this.route = '';
+    this.datoSource = '';
   }
 
-  leerEmail(): string {
+  public leerEmail(): string {
     return this.email;
   }
-  leerPass(): string {
+  public leerPass(): string {
     return this.pass;
   }
-  mantener(): boolean {
+  public mantener(): boolean {
     return this.mant;
   }
 
+  public cargarCurrentUser(user: UsuarioGral) {
+    this.currentUser = user;
+  }
+
+  public getCurrentUser(): UsuarioGral {
+    return this.currentUser;
+  }
 }

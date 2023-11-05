@@ -29,10 +29,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registro/registro.module').then(m => m.RegistroModule),
     canActivate: [NoAuthGuard]
   },
-  {
-    path: '**',
-    loadChildren: () => import('./pages/error/error-page.module').then(m => m.ErrorPageModule),
-  },
+  // {
+  //   path: '**',
+  //   loadChildren: () => import('./pages/error/error-page.module').then(m => m.ErrorPageModule),
+  // },
+  // {
+  //   path:'', loadChildren: () => import('./pages/horarios/horarios.module').then(m => m.HorariosModule),
+  // }
+
+
   // {
   //   path:'', loadChildren: () => import('./pages/subir-fotos/fotos.module').then(m => m.FotosModule),
   // }

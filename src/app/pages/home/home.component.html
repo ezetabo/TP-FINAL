@@ -9,13 +9,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- ADMIN -->
         <li class="nav-item" *ngIf="usuario.Rol == 'admin'">
-          <a class="nav-link" routerLink="seccion-usuarios" routerLinkActive="active"
-           >Info usuarios</a>
+          <a class="nav-link" routerLink="seccion-usuarios"
+            routerLinkActive="active">Info usuarios</a>
         </li>
         <li class="nav-item" *ngIf="usuario.Rol == 'admin'">
           <div class="dropdown">
-            <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            <button class="nav-link" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Alta usuarios
             </button>
             <ul class="dropdown-menu">
@@ -24,6 +26,11 @@
               <li><a class="dropdown-item" (click)="navegar('especialista')">Especialista</a></li>
             </ul>
           </div>
+        </li>
+        <!-- ESPECIALISTA -->
+        <li class="nav-item" *ngIf="usuario.Rol == 'especialista'">
+          <a class="nav-link" routerLink="cargar-horario"
+          routerLinkActive="active">Cargar Horario</a>
         </li>
       </ul>
 
@@ -40,7 +47,7 @@
     </div>
   </div>
 </nav>
-<div style="margin-top: 10px;" >
+<div style="margin-top: 10px;">
 
   <router-outlet></router-outlet>
 </div>

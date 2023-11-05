@@ -1,13 +1,13 @@
 import { UsuarioGral } from "./usuario-gral.interface";
 
-export interface HorarioLaboral {
+export interface HorarioLaboral{
   id: string,
   dia: Dia,
   especialista: UsuarioGral,
   horarios: Horario[],
 }
 
-export interface Horario {
+export interface Horario{
   hora: Hora,
   disponible: boolean
 }
@@ -18,7 +18,7 @@ export type Hora =
   '17:00' | '17:30' | '18:00' | '18:30' | '19:00';
 
 
-export enum Dia {
+export enum Dia{
   lunes = 'lunes', martes = 'martes', miercoles = 'miercoles', jueves = 'jueves', viernes = 'viernes', sabado = 'sabado'
 }
 

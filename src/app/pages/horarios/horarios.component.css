@@ -1,0 +1,17 @@
+
+.texto-lbl {
+
+  float: left;
+
+}
+
+.card-gris {
+  background-color: rgb(203, 188, 209);
+  border-radius: 10px;
+}
+
+
+.card-blue {
+  background-color: rgb(159, 216, 230);
+  border-radius: 10px;
+}

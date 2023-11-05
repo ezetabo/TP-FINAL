@@ -23,7 +23,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.getUserEmail().subscribe(x => {
-      this.bsc.userByEmail(x!).subscribe(user => this.usuario = user as UsuarioGral)
+      this.bsc.userByEmail(x!).subscribe(user => {
+        this.usuario = user as UsuarioGral
+        this.msj.cargarCurrentUser(this.usuario);
+
+
+      });
     })
   }
 
@@ -37,6 +42,8 @@ export class HomeComponent implements OnInit {
 
 
   navegar(url: string): void {
+
+    this.msj.reset();
     this.msj.enviarDato(url);
     this.msj.enviarLogueo(this.usuario.Email,this.usuario.Password);
     this.msj.enviarRoute('home');
