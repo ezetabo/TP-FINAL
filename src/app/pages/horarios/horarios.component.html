@@ -2,21 +2,21 @@
   <div class="row vh-100 justify-content-center align-items-center">
     <div class="col-12">
       <div class="row">
-        <div *ngFor="let dia of dias" class="col-4">
-          <div class="card text-center transparent-bg mt-3"[ngClass]="getCardClass(dia)">
+        <div *ngFor="let dia of cronograma.misHorarios" class="col-4">
+          <div class="card text-center transparent-bg mt-3"[ngClass]="{ 'card-blue': dia.cargado, 'card-gris': !dia.cargado }">
             <div class="card-header d-flex justify-content-center align-items-center">
               <input type="checkbox" [(ngModel)]="dia.editable">
               <b>{{ dia.nombre | cFL }}</b>
             </div>
             <div class="card-body">
               <label class="texto-lbl">Hora Inicio</label>
-              <select class="form-select" [disabled]="!dia.editable" [(ngModel)]="seleccionesHoras[dia.nombre]!.horaInicio">
+              <select class="form-select" [disabled]="!dia.editable" [(ngModel)]="dia.horaInicio">
                 <option value></option>
                 <option *ngFor="let hora of horas" [value]="hora">{{ hora }}</option>
               </select>
 
               <label class="texto-lbl mt-2">Hora Fin</label>
-              <select class="form-select" [disabled]="!dia.editable" [(ngModel)]="seleccionesHoras[dia.nombre]!.horaFin">
+              <select class="form-select" [disabled]="!dia.editable" [(ngModel)]="dia.horaFin">
                 <option value></option>
                 <option *ngFor="let hora of filtrarHoras(dia.nombre)" [value]="hora">{{ hora }}</option>
               </select>

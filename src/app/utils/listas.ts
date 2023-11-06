@@ -1,3 +1,4 @@
+import { Hora } from "../interface/horario-laboral.interface";
 import { Lista } from "../interface/listas.interface";
 import { UsuarioGral } from "../interface/usuario-gral.interface";
 
@@ -113,4 +114,19 @@ export function sortByApellido(usuarios: UsuarioGral[]): UsuarioGral[] {
     }
     return 0;
   });
+}
+
+export function validarHoras(horaInicio: Hora, horaFin: Hora): boolean {
+  const horaInicioParts = horaInicio.split(':');
+  const horaFinParts = horaFin.split(':');
+  const horaInicioNum = parseInt(horaInicioParts[0]);
+  const minutosInicioNum = parseInt(horaInicioParts[1]);
+  const horaFinNum = parseInt(horaFinParts[0]);
+  const minutosFinNum = parseInt(horaFinParts[1]);
+  if (horaInicioNum < horaFinNum) {
+    return true;
+  } else if (horaInicioNum === horaFinNum && minutosInicioNum < minutosFinNum) {
+    return true;
+  }
+  return false;
 }

@@ -1,6 +1,6 @@
 import { Lista } from "./listas.interface";
 
-export interface UsuarioGral {
+export interface UsuarioGral{
   id: string;
   Nombre: string;
   Apellido: string;
@@ -15,4 +15,11 @@ export interface UsuarioGral {
   Imagen2: string;
   ObraSocial: string;
 
+}
+
+export interface Especialista{
+  id: string;
+  Nombre: string;
+  Apellido: string;
+  Especialidades: Lista[];
 }
