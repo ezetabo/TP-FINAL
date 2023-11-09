@@ -22,9 +22,19 @@
               </select>
 
               <hr>
-              <button type="button" class="btn btn-success"
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-success"
               (click)="cargarhorario(dia.nombre)"
               [disabled]="!dia.editable">Cargar</button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-danger"
+              (click)="quitar(dia.nombre)"
+              [disabled]="!dia.editable">Quitar</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

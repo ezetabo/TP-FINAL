@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc, getDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Cronograma } from '../interface/horario-laboral.interface';
 
@@ -43,6 +43,22 @@ export class CronogramaDBService {
     const docs = doc(this.dataRef, dato.id);
     deleteDoc(docs);
   }
+
+
+
+  getDatoPorId(id: string): Promise<Cronograma | null> {
+    const docs = doc(this.dataRef, id);
+    return getDoc(docs)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          const dato = docSnap.data() as Cronograma;
+          return dato;
+        } else {
+          return null;
+        }
+      })
+  }
+
 
 }
 

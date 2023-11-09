@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HorariosRoutingModule } from './horarios-routing.module';
-import { HorariosComponent } from './horarios.component';
+import { HorariosRoutingModule } from './horarios-especialista-routing.module';
+import { HorariosEspecialistaComponent } from './horarios-especialista.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    HorariosComponent
+    HorariosEspecialistaComponent
   ],
   imports: [
     CommonModule,
@@ -18,4 +18,4 @@ import { FormsModule } from '@angular/forms';
     PipesModule
   ]
 })
-export class HorariosModule { }
+export class HorariosEspecialistaModule { }

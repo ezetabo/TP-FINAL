@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { SpinnerModule } from 'src/app/modules/spinner/spinner.module';
 
 
 
@@ -12,7 +13,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
   imports: [
     CommonModule,
     WelcomeRoutingModule,
-    PipesModule
+    PipesModule,
+    SpinnerModule
   ]
 })
 export class WelcomeModule { }

@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'cargar-horario',
-        loadChildren: () => import('../horarios/horarios.module').then(m => m.HorariosModule),
+        loadChildren: () => import('../horarios/horarios-especialista/horarios-especialista.module').then(m => m.HorariosEspecialistaModule),
         // canActivate: [IsAdminGuard]
       },
       {

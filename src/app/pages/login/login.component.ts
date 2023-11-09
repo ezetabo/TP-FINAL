@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { BuscadorService } from 'src/app/service/buscador.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-login',
@@ -20,23 +21,43 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router) { }
 
-  ingresar(): void {
+  ingresar(tipo: string = ''): void {
+    let email: string = '';
+    let password: string = '';
+    switch (tipo) {
+      case 'paciente':
+        email = environment.users.pac.email;
+        password =environment.users.pac.password;
+        break;
+      case 'especialista':
+        email = environment.users.esp.email;
+        password =environment.users.esp.password;
+        break;
+      case 'admin':
+        email = environment.users.admin.email;
+        password =environment.users.admin.password;
+        break;
 
-    const { email, password } = this.usuario
-    this.autoLog(email, password);
+      default:
+        email = this.usuario.email;
+        password = this.usuario.password;
+        break;
+    }
+
+    this.login(email, password);
   }
 
 
-  autoLog(email: string, password: string) {
+  login(email: string, password: string) {
     this.authService.login(email, password)
       .then(res => {
         if (res) {
           if (res.user.emailVerified) {
-            this.bsc.userByEmail(email).subscribe(x =>{
-              if(!x  || x.Autorizado){
+            this.bsc.userByEmail(email).subscribe(x => {
+              if (!x || x.Autorizado) {
                 console.log('login Ok');
                 this.rtr.navigateByUrl('home');
-              }else{
+              } else {
                 Swal.fire('Falta la aprobacion de un administrador');
               }
             });

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HorariosComponent } from './horarios.component';
+import { HorariosEspecialistaComponent } from './horarios-especialista.component';
 
 const routes: Routes = [
   {
-    path:'', component: HorariosComponent
+    path:'', component: HorariosEspecialistaComponent
   }
 ];
 

@@ -1,11 +1,12 @@
 import { Especialista } from "./usuario-gral.interface";
 
-export interface HorarioLaboral {
+
+export interface Cronograma {
   id: string,
-  dia: Dia,
   especialista: Especialista,
-  horarios: Horario[],
+  misHorarios: diario[];
 }
+
 
 export interface Horario {
   hora: Hora,
@@ -22,22 +23,18 @@ export enum Dia {
   lunes = 'lunes', martes = 'martes', miercoles = 'miercoles', jueves = 'jueves', viernes = 'viernes', sabado = 'sabado'
 }
 
-export interface Cronograma {
-  id: string,
-  misHorarios: diario[];
-}
-
 export interface diario {
   id:string,
   nombre: Dia,
   editable: boolean,
   cargado: boolean,
   horaInicio: Hora | string,
-  horaFin: Hora | string
+  horaFin: Hora | string,
+  turnos: Horario[]
 }
 
 
-export function generarDisponible(dia: Dia, especialista: Especialista, horaInicio: Hora, horaFin: Hora): HorarioLaboral {
+export function generarDisponible(horaInicio: Hora, horaFin: Hora): Horario[] {
   const startDate = new Date(0, 0, 0, parseInt(horaInicio.split(':')[0]), parseInt(horaInicio.split(':')[1]));
   const endDate = new Date(0, 0, 0, parseInt(horaFin.split(':')[0]), parseInt(horaFin.split(':')[1]));
   const horarios: Horario[] = [];
@@ -46,6 +43,5 @@ export function generarDisponible(dia: Dia, especialista: Especialista, horaInic
     horarios.push({ hora: horaActual as Hora, disponible: true });
     startDate.setMinutes(startDate.getMinutes() + 30);
   }
-  const horario: HorarioLaboral = { id: '', dia, especialista, horarios };
-  return horario;
+  return horarios;
 }
