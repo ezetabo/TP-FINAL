@@ -1,4 +1,4 @@
-import { Hora } from "../interface/horario-laboral.interface";
+import { Dia, Fecha, Hora } from "../interface/horario-laboral.interface";
 import { Lista } from "../interface/listas.interface";
 import { UsuarioGral } from "../interface/usuario-gral.interface";
 
@@ -130,3 +130,44 @@ export function validarHoras(horaInicio: Hora, horaFin: Hora): boolean {
   }
   return false;
 }
+
+
+export function obtenerFechaActual(aumento: number = 0): Fecha {
+  const diasSemana: Dia[] = [Dia.domingo, Dia.lunes, Dia.martes, Dia.miercoles, Dia.jueves, Dia.viernes, Dia.sabado];
+  const opcionesFecha: Intl.DateTimeFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
+  const fechaActual = new Date();
+  fechaActual.setDate(fechaActual.getDate() + aumento);
+  const numeroDiaSemana = fechaActual.getDay();
+  const fecha = fechaActual.toLocaleDateString('es-ES', opcionesFecha);
+  return {
+    dia: diasSemana[numeroDiaSemana],
+    fecha: fecha
+  };
+}
+
+
+
+export function crearRotador(array: any[]) {
+  let currentIndex = 0;
+
+  function rotarArray() {
+    currentIndex = (currentIndex + 1) % array.length;
+  }
+
+  function elementoActual() {
+    return array[currentIndex];
+  }
+
+  return {
+    rotar: rotarArray,
+    obtenerElementoActual: elementoActual,
+  };
+}
+
+// const miArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+// const rotador = crearRotador(miArray);
+
+// setInterval(() => {
+//   rotador.rotar();
+//   console.log('Elemento actual:', rotador.obtenerElementoActual());
+// }, 1000);

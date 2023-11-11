@@ -7,6 +7,10 @@ export interface Cronograma {
   misHorarios: diario[];
 }
 
+export interface Fecha{
+  dia:Dia,
+  fecha: string
+}
 
 export interface Horario {
   hora: Hora,
@@ -20,7 +24,10 @@ export type Hora =
 
 
 export enum Dia {
-  lunes = 'lunes', martes = 'martes', miercoles = 'miercoles', jueves = 'jueves', viernes = 'viernes', sabado = 'sabado'
+  domingo = 'domingo',
+  lunes = 'lunes', martes = 'martes',
+  miercoles = 'miercoles', jueves = 'jueves',
+   viernes = 'viernes', sabado = 'sabado'
 }
 
 export interface diario {

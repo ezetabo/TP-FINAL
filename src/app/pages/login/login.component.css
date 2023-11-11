@@ -13,13 +13,28 @@
 }
 
 .card {
-  max-width:  600px;
+
   background-color: rgb(203, 188, 209);
   border-radius: 10px;
 }
 
-/* @media (min-width: 768px) {
-  .card {
-    max-width: 30%;
-  }
-} */
+img{
+  height: 50px;
+  width: 50px;
+}
+
+.especialista{
+  background-color: aqua;
+}
+.admin{
+  background-color: rgb(144, 223, 164);
+}
+.paciente{
+  background-color: rgb(208, 172, 223);
+}
+
+.boton-inicio{
+  width: 250px;
+}
+
+

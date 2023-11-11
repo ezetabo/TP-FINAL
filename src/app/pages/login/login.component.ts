@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { BuscadorService } from 'src/app/service/buscador.service';
 import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment.development';
+import { UsersService } from 'src/app/service/users.service';
+import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   title = 'loginFirebase';
   public showPassword: boolean = false;
@@ -19,7 +21,13 @@ export class LoginComponent {
     password: ''
   }
 
-  constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router) { }
+  public usuarios: UsuarioGral[] = [];
+
+  constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router, private usS:UsersService) { }
+
+  ngOnInit(): void {
+    this.usuarios = this.usS.getUsers(3,2,1);
+  }
 
   ingresar(tipo: string = ''): void {
     let email: string = '';

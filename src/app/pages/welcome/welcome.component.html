@@ -3,41 +3,51 @@
   <div class="p-3 mb-2 bg-light rounded-3">
     <div class="container-fluid py-3">
       <h1 class="display-4 fw-bold">Tp-Final / LA CLINICA</h1>
-      <p class="col-md-8 fs-3 mt-3">Si posee una cuenta verificada, acceda desde
+      <p class="col-md-12 fs-3 mt-3">Si posee una cuenta verificada, acceda desde
         el login, de lo contrario puede crearse una cuenta según su rol.</p>
       <button class="btn btn-primary btn-sm" type="button"
-     (click)="navegar('login')"
-      >Login</button>
+        (click)="navegar('login')">Login</button>
     </div>
   </div>
 
   <div class="row align-items-md-stretch">
-    <div class="col-md-6">
-      <div class="h-100 p-3 text-white bg-dark rounded-3">
-        <h2>Rol Paciente</h2>
-        <p class="mt-3">Cree una nueva cuenta con perfil de paciente, el mismo
-          le permitirá acceder previa verificación de email.</p>
-        <button class="btn btn-outline-light btn-sm" type="button"
-        (click)="navegar('paciente')"
-        >Crear cuenta</button>
+    <div class="col-md-6 especialista">
+      <div
+        class="card mx-auto d-flex justify-content-center align-items-center p-2"
+        style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+        <div class="card-body">
+          <label>
+            <img class="imagenes"
+              src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fstaff-medicos_1699640075141?alt=media&token=327903f4-f1c4-4a82-a3dd-443343bb9e89"
+              alt
+              (click)="navegar('especialista')"
+              >
+          </label>
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="h-100 p-3 bg-light border rounded-3">
-        <h2>Rol Especialista</h2>
-        <p class="mt-3">Cree una nueva cuenta con perfil de especialista, el mismo
-          le permitirá acceder previa verificación de email y aprobación de un administrador.</p>
-        <button class="btn btn-outline-secondary btn-sm" type="button"
-        (click)="navegar('especialista')"
-        >Crear cuenta</button>
+
+    <div class="col-md-6 paciente">
+      <div
+        class="card mx-auto d-flex justify-content-center align-items-center p-2"
+        style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+        <div class="card-body">
+          <label>
+            <img class="imagenes"
+              src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fpersonas_1699644430500?alt=media&token=4cf1f2f8-6b05-460c-b897-45de8324b8f8"
+              alt
+              (click)="navegar('paciente')"
+              >
+          </label>
+        </div>
       </div>
     </div>
+
   </div>
 
   <footer class="pt-2 mt-2 text-muted border-top" (click)="logout()">
     &copy; Taboada Ezequiel - 2023
   </footer>
 </div>
-
 
 <app-spinner [mostrandoSpinner]="!ocultar"></app-spinner>

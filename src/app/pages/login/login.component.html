@@ -1,39 +1,44 @@
-<div class="container-fluid">
-  <div class="row vh-100 justify-content-center align-items-center">
-    <div class="col-lg-4 col-md-6 col-sm-8 col-10">
-      <div class="card text-center transparent-bg">
-        <div
-          class="card-header d-flex justify-content-center align-items-center">
+<div class="container-fluid mt-5" *ngIf="usuarios.length > 0">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-8">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group d-flex flex-wrap justify-content-center mx-5">
+            <div class="col-md-4 mb-3" *ngFor="let usuario of usuarios">
+              <button class="btn btn-outline boton-inicio {{usuario.Rol}} mb-3" type="button"
+              (click)="login(usuario.Email,usuario.Password)">
+                <div class="d-flex align-items-center">
+                  <img [src]="usuario.Imagen" alt="{{usuario.Rol}}" class="mr-2">
+                  <div class="d-flex flex-column align-items-center">
+                    <b style="margin-left: 10px;">{{usuario.Apellido | cFL }}{{', '+ usuario.Nombre}} ({{usuario.Rol}})</b>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card text-center transparent-bg mt-3">
+        <div class="card-header">
           <b class="texto-claro mb-0">Login</b>
         </div>
 
         <div class="card-body">
           <label class="texto-claro2">Email</label>
-          <input type="email" class="form-control"
-            placeholder="ingrese su email" [(ngModel)]="usuario.email">
+          <input type="email" class="form-control" placeholder="Ingrese su email" [(ngModel)]="usuario.email">
 
           <label class="texto-claro2 mt-2">Password</label>
           <div class="input-group">
-            <input type="{{ showPassword ? 'text' : 'password' }}"
-              class="form-control" placeholder="Ingrese su contraseña"
-              [(ngModel)]="usuario.password">
+            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" placeholder="Ingrese su contraseña" [(ngModel)]="usuario.password">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button"
-                (click)="togglePasswordVisibility()">
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
                 <i [ngClass]="showPassword ? 'pi pi-eye':'pi pi-eye-slash'"></i>
               </button>
             </div>
           </div>
 
-          <div class="d-grid">
-            <button class="btn btn-primary m-3" type="button"
-              (click)="ingresar()">Ingresar</button>
-            <button class="btn btn-outline-success btn-sm" type="button"
-              (click)="ingresar('paciente')">Paciente</button>
-            <button class="btn btn-outline-info btn-sm" type="button"
-              (click)="ingresar('especialista')">Especialista</button>
-            <button class="btn btn-outline-danger btn-sm" type="button"
-              (click)="ingresar('admin')">admin</button>
+          <div class="d-grid mt-3">
+            <button class="btn btn-primary" type="button" (click)="ingresar()">Ingresar</button>
           </div>
         </div>
       </div>
