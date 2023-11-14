@@ -1,7 +1,7 @@
 import { Especialista } from "./usuario-gral.interface";
 
 
-export interface Cronograma {
+export interface CronogramaEspecialista {
   id: string,
   especialista: Especialista,
   misHorarios: diario[];

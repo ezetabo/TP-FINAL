@@ -1,4 +1,5 @@
-import { Dia, Fecha, Hora } from "../interface/horario-laboral.interface";
+import { CronogramaAtencion } from "../interface/cronograma-atencion.interface";
+import { CronogramaEspecialista, Dia, Fecha, Hora } from "../interface/horario-laboral.interface";
 import { Lista } from "../interface/listas.interface";
 import { UsuarioGral } from "../interface/usuario-gral.interface";
 
@@ -143,6 +144,36 @@ export function obtenerFechaActual(aumento: number = 0): Fecha {
     dia: diasSemana[numeroDiaSemana],
     fecha: fecha
   };
+}
+
+export function ordenarCronograma(cronogramas: CronogramaAtencion[]): CronogramaAtencion[] {
+  return cronogramas.sort((crono1, crono2) => {
+    const fecha1 = parsearFecha(crono1.fecha.fecha);
+    const fecha2 = parsearFecha(crono2.fecha.fecha);
+    return fecha1.getTime() - fecha2.getTime();
+  });
+}
+
+export function ordenarEspecialistas(cronogramas: CronogramaEspecialista[]): CronogramaEspecialista[] {
+  return cronogramas.sort((a, b) => {
+    const A = (a && a.especialista.Apellido) ? a.especialista.Apellido.toLowerCase() : '';
+    const B = (b && b.especialista.Apellido) ? b.especialista.Apellido.toLowerCase() : '';
+
+    if (A < B) {
+      return -1;
+    }
+    if (A > B) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function parsearFecha(fechaString: string): Date {
+  const [dia, mes, ano] = fechaString.split('/').map(Number);
+
+  const fechaParseada = new Date(ano + 2000, mes - 1, dia);
+  return fechaParseada;
 }
 
 

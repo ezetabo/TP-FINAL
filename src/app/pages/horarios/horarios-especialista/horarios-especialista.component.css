@@ -15,3 +15,7 @@
   background-color: rgb(159, 216, 230);
   border-radius: 10px;
 }
+
+.container-fluid{
+  margin-top: 0;
+}

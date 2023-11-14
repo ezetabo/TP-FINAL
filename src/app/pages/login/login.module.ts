@@ -5,6 +5,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from "../../pipes/pipes.module";
+import { SpinnerModule } from "../../modules/spinner/spinner.module";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PipesModule } from "../../pipes/pipes.module";
         CommonModule,
         LoginRoutingModule,
         FormsModule,
-        PipesModule
+        PipesModule,
+        SpinnerModule
     ]
 })
 export class LoginModule { }

@@ -1,12 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Cronograma, Dia, Hora} from 'src/app/interface/horario-laboral.interface';
+import { CronogramaEspecialista, Dia, Hora} from 'src/app/interface/horario-laboral.interface';
 import { Especialista } from 'src/app/interface/usuario-gral.interface';
-import { CronogramaDBService } from 'src/app/service/cronogramaDB.service';
+import { CronogramaEspecialistaDBService } from 'src/app/service/cronogramaEspecialistaDB.service';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { validarHoras } from 'src/app/utils/listas';
 import Swal from 'sweetalert2';
 import { generarDisponible } from '../../../interface/horario-laboral.interface';
+import { Lista } from '../../../interface/listas.interface';
 
 @Component({
   selector: 'app-horarios-especialista',
@@ -15,7 +16,7 @@ import { generarDisponible } from '../../../interface/horario-laboral.interface'
 })
 export class HorariosEspecialistaComponent implements OnInit {
 
-  public cronograma: Cronograma = {
+  public cronograma: CronogramaEspecialista = {
     id: '',
     especialista: { id:'', Nombre:'',Apellido: '', Especialidades:[] },
     misHorarios: [
@@ -35,9 +36,7 @@ export class HorariosEspecialistaComponent implements OnInit {
   ];
 
 
-
-
-  constructor(private msj: MensajeroService, private crn: CronogramaDBService) { }
+  constructor(private msj: MensajeroService, private crn: CronogramaEspecialistaDBService) { }
 
   ngOnInit(): void {
     this.crn.getDatoPorId(this.msj.getCurrentUser().id).then(x =>{
@@ -60,6 +59,8 @@ export class HorariosEspecialistaComponent implements OnInit {
       const { horaInicio, horaFin } = selecciones;
       if (validarHoras(horaInicio as Hora, horaFin as Hora) || quitar) {
         const { id, Nombre, Apellido, Especialidades } = this.msj.getCurrentUser();
+        console.log(Especialidades);
+
         const especialista: Especialista = { id: id, Nombre: Nombre, Apellido: Apellido, Especialidades: Especialidades };
         selecciones.cargado = !quitar;
         if (quitar){

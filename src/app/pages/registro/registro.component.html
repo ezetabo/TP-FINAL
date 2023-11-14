@@ -1,5 +1,7 @@
 
 
+<div class="spinner">
+  <app-spinner *ngIf="!ocultar"></app-spinner>
+</div>
 
-
-<app-form-usuario [rol]="rol"  (getUsuario)="getUsuario($event)"></app-form-usuario>
+<app-form-usuario [rol]="rol"  (getUsuario)="getUsuario($event)" *ngIf="ocultar"></app-form-usuario>

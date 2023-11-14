@@ -22,11 +22,16 @@ export class LoginComponent implements OnInit {
   }
 
   public usuarios: UsuarioGral[] = [];
-
-  constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router, private usS:UsersService) { }
+  public ocultar: boolean = false;
+  constructor(private authService: AuthService, private bsc: BuscadorService, private rtr: Router, private usS: UsersService) { }
 
   ngOnInit(): void {
-    this.usuarios = this.usS.getUsers(3,2,1);
+    this.usS.getUsers(3, 2, 1).subscribe(x=>{
+      this.usuarios = x;
+      setTimeout(() => {
+        this.ocultar = true;
+      }, 500);
+    });
   }
 
   ingresar(tipo: string = ''): void {
@@ -35,15 +40,15 @@ export class LoginComponent implements OnInit {
     switch (tipo) {
       case 'paciente':
         email = environment.users.pac.email;
-        password =environment.users.pac.password;
+        password = environment.users.pac.password;
         break;
       case 'especialista':
         email = environment.users.esp.email;
-        password =environment.users.esp.password;
+        password = environment.users.esp.password;
         break;
       case 'admin':
         email = environment.users.admin.email;
-        password =environment.users.admin.password;
+        password = environment.users.admin.password;
         break;
 
       default:

@@ -10,9 +10,10 @@ import { sortByApellido } from 'src/app/utils/listas';
 export class TablaComponent {
 
   @Output() public opcion = new EventEmitter<UsuarioGral>();
+  @Output() public autorizar = new EventEmitter<UsuarioGral>();
 
   @Input() lista: UsuarioGral[] = [];
-  @Input() tipo:string='';
+  @Input() tipo: string = 'especialista';
 
 
   constructor() { }
@@ -23,6 +24,10 @@ export class TablaComponent {
 
   ordenar() {
     this.lista = sortByApellido(this.lista);
+  }
+
+  authUser(user: UsuarioGral) {
+    this.autorizar.emit(user);
   }
 
   getOpcion(opcion: UsuarioGral) {

@@ -16,14 +16,19 @@ export class RegistroComponent implements OnInit {
 
   public rol: string = '';
   public usuario!: UsuarioGral;
-
+  public ocultar: boolean = false;
   constructor(private msj: MensajeroService, private auth: AuthService, private uDB: UsuarioGralDBService,
     private rtr: Router) { }
 
   ngOnInit(): void {
+
     if (this.rol == '') {
       this.rol = this.msj.leerDato();
     }
+    setTimeout(() => {
+      this.ocultar = true;
+    }, 1000);
+
   }
 
   getUsuario(event: UsuarioGral) {
