@@ -1,74 +1,103 @@
-<div class="container" *ngIf="verSeleccion">
-  <div class="row align-items-md-stretch p-5">
-    <div class="col-md-6 especialista">
-      <div
-        class="card mx-auto d-flex justify-content-center align-items-center p-2"
-        style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-        <div class="card-body">
-          <label>
-            <img class="imagenes"
-              src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
-              alt
-              (click)="filtrar('especialista')">
-          </label>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-6 paciente">
-      <div
-        class="card mx-auto d-flex justify-content-center align-items-center p-2"
-        style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-        <div class="card-body">
-          <label>
-            <img class="imagenes"
-              src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
-              alt
-              (click)="filtrar('especialidad')">
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="filtro == 'especialidad'">
-    <div class="col-12 text-center">
-      <hr>
-      <button *ngFor="let tipo of listaEspecialidaes"
-        class="btn btn-primary m-2"
-        (click)="filtrarPorEspecialidad(tipo.nombre)">
-        {{tipo.nombre | cFL}}
-      </button>
-      <hr>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="filtro == 'especialista'">
-    <div class="col-12 text-center">
-      <hr>
-      <button
-        *ngFor="let tipo of cronogramasEspecialistas | ordenarEspecialistas "
-        class="btn btn-primary m-2"
-        (click)="filtrarPorEspecialista(tipo.especialista)">
-        {{tipo.especialista.Apellido | cFL}} {{tipo.especialista.Nombre | cFL}}
-      </button>
-      <hr>
-    </div>
-  </div>
-
+<div class="container" *ngIf="!paciente">
+  <h3 class="mt-2 text-center text-white bg-primary" style="border-radius:50%;"><b>Seleccione el paciente para sacar turno</b></h3>
+  <app-tabla [mensaje]="'Cargando pacientes'" [lista]="pacientes" [tipo]="'paciente'" (opcion)="seleccionarPaciente($event)"></app-tabla>
 </div>
+<div *ngIf="paciente">
+  <div class="container" *ngIf="!verTurnos">
+    <div class="row align-items-md-stretch p-5">
+      <div class="col-md-6 especialista">
+        <div
+          class="card mx-auto d-flex justify-content-center align-items-center p-2"
+          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+          <div class="card-body">
+            <label>
+              <img class="imagenes"
+                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
+                alt
+                (click)="filtrar('especialista')">
+            </label>
+          </div>
+          <b><span>Especialistas</span></b>
+        </div>
+      </div>
 
-<div class="container" *ngIf="verTurnos">
-  <div class="row" *ngIf="mostrar">
-    <div class="col-2 mt-5"
-      *ngFor="let dia of mostrar | ordenarCronograma">
-      <div class="ul">
-        <div class="li">
-          {{dia.fecha.dia}} - {{dia.fecha.fecha}}
-          <div class="li" *ngFor="let horario of dia.turnos">
-            {{horario.especialista.Apellido}} {{horario.especialista.Nombre}}
-            <div class="li" *ngFor="let turno of horario.turnos">
-              {{turno.hora}} - {{turno.disponible ? "Disponible":"ocupado"}}
+      <div class="col-md-6 paciente">
+        <div
+          class="card mx-auto d-flex justify-content-center align-items-center p-2"
+          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+          <div class="card-body">
+            <label>
+              <img class="imagenes"
+                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
+                alt
+                (click)="filtrar('especialidad')">
+            </label>
+          </div>
+          <b><span>Especialidades</span></b>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="filtro == 'especialidad'">
+      <div class="col-12 text-center">
+        <hr>
+        <button *ngFor="let tipo of listaEspecialidaes | ordenarListaString"
+          class="btn btn-primary m-2"
+          (click)="filtrarPorEspecialidad(tipo.nombre)">
+          {{tipo.nombre | cFL}}
+        </button>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="filtro == 'especialista'">
+      <div class="col-12 text-center">
+        <hr>
+        <button
+          *ngFor="let tipo of cronogramasEspecialistas | ordenarEspecialistas "
+          class="btn btn-primary m-2"
+          (click)="filtrarPorEspecialista(tipo.especialista)">
+          {{tipo.especialista.Apellido | cFL}} {{tipo.especialista.Nombre |
+          cFL}}
+        </button>
+        <hr>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container" *ngIf="verTurnos">
+    <p><a
+        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+        (click)="clean()">Volver</a></p>
+    <div class="row" *ngIf="mostrar">
+      <h3 class="mt-2 text-center text-white" *ngIf="especialidadElegida"><b>{{especialidadElegida}}</b></h3>
+      <div
+        class="col-12 col-sm-6 col-md-4 col-lg-3 border border-info mt-2 bg-dark"
+        *ngFor="let dia of mostrar | ordenarCronograma">
+        <div class="ul">
+          <div class="li">
+            <h4><span class="badge bg-warning text-dark">{{dia.fecha.dia}} -
+                {{dia.fecha.fecha}}</span></h4>
+            <div class="li" *ngFor="let horario of dia.turnos">
+              <span class="badge bg-success"> {{horario.especialista.Apellido |
+                cFL}} {{horario.especialista.Nombre | cFL}} </span>
+              <div *ngFor="let turno of horario.turnos" class="text-center">
+                <!-- <button (click)="elegirTurno(turno, dia)" type="button" class="btn btn-primary  m-1" >
+                {{turno.hora}} - {{turno.disponible ? "Disponible" : "Ocupado"}}
+              </button> -->
+                <button (click)="elegirTurno(turno, dia)"
+                  type="button"
+                  class="btn m-1"
+                  [ngClass]="{
+              'btn-primary': turno.disponible,
+              'btn-outline-danger': !turno.disponible}"
+                  [disabled]="!turno.disponible">
+                  {{turno.hora}} - {{turno.disponible ? "Disponible" : "Ocupado"}}
+                </button>
+              </div>
+              <hr>
             </div>
           </div>
         </div>

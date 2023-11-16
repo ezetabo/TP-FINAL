@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HorariosTurnosRoutingModule } from './horarios-turnos-routing.module';
 import { HorariosTurnosComponent } from './horarios-turnos.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TablaModule } from 'src/app/modules/tabla/tabla.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
   imports: [
     CommonModule,
     HorariosTurnosRoutingModule,
-    PipesModule
+    PipesModule,
+    TablaModule
   ]
 })
 export class HorariosTurnosModule { }

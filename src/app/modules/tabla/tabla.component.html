@@ -1,7 +1,7 @@
 <div class="table-container">
   <div *ngIf="lista.length === 0; else table"
     class="alert alert-warning text-center">
-    Seleccione un tipo de usuario para mostrar.
+    {{mensaje}}
   </div>
   <ng-template #table>
     <div class="table-responsive">
@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of lista; let i = index"
+          <tr *ngFor="let usuario of lista  | ordenarUsuariosGral; let i = index"
             (click)="getOpcion(usuario)">
             <td [ngClass]="getRowClass(i)">{{ i + 1 }}</td>
             <td [ngClass]="getRowClass(i)">

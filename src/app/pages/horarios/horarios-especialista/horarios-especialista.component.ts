@@ -1,13 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-import { CronogramaEspecialista, Dia, Hora} from 'src/app/interface/horario-laboral.interface';
+import { CronogramaEspecialista, Dia, Hora } from 'src/app/interface/horario-laboral.interface';
 import { Especialista } from 'src/app/interface/usuario-gral.interface';
 import { CronogramaEspecialistaDBService } from 'src/app/service/cronogramaEspecialistaDB.service';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { validarHoras } from 'src/app/utils/listas';
 import Swal from 'sweetalert2';
 import { generarDisponible } from '../../../interface/horario-laboral.interface';
-import { Lista } from '../../../interface/listas.interface';
 
 @Component({
   selector: 'app-horarios-especialista',
@@ -18,14 +17,14 @@ export class HorariosEspecialistaComponent implements OnInit {
 
   public cronograma: CronogramaEspecialista = {
     id: '',
-    especialista: { id:'', Nombre:'',Apellido: '', Especialidades:[] },
+    especialista: { id: '', Nombre: '', Apellido: '', Especialidades: [] },
     misHorarios: [
-      { nombre: Dia.lunes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]},
-      { nombre: Dia.martes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]},
-      { nombre: Dia.miercoles, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]},
-      { nombre: Dia.jueves, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]},
-      { nombre: Dia.viernes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]},
-      { nombre: Dia.sabado, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '' ,turnos:[]}
+      { nombre: Dia.lunes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
+      { nombre: Dia.martes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
+      { nombre: Dia.miercoles, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
+      { nombre: Dia.jueves, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
+      { nombre: Dia.viernes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
+      { nombre: Dia.sabado, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] }
     ]
   }
 
@@ -39,12 +38,14 @@ export class HorariosEspecialistaComponent implements OnInit {
   constructor(private msj: MensajeroService, private crn: CronogramaEspecialistaDBService) { }
 
   ngOnInit(): void {
-    this.crn.getDatoPorId(this.msj.getCurrentUser().id).then(x =>{
-      if(x){
-      this.cronograma = x;
-      }
-    });
-   }
+    if (this.msj.getCurrentUser().id) {
+      this.crn.getDatoPorId(this.msj.getCurrentUser().id).then(x => {
+        if (x) {
+          this.cronograma = x;
+        }
+      });
+    }
+  }
 
   public filtrarHoras(dia: Dia, hora: Hora = '14:00'): Hora[] {
     if (dia === Dia.sabado) {
@@ -53,22 +54,20 @@ export class HorariosEspecialistaComponent implements OnInit {
     return this.horas;
   }
 
-  public cargarhorario(dia: Dia, quitar: boolean = false ): void {
+  public cargarhorario(dia: Dia, quitar: boolean = false): void {
     const selecciones = this.cronograma.misHorarios.find(x => x.nombre === dia);
     if (selecciones) {
       const { horaInicio, horaFin } = selecciones;
       if (validarHoras(horaInicio as Hora, horaFin as Hora) || quitar) {
         const { id, Nombre, Apellido, Especialidades } = this.msj.getCurrentUser();
-        console.log(Especialidades);
-
         const especialista: Especialista = { id: id, Nombre: Nombre, Apellido: Apellido, Especialidades: Especialidades };
         selecciones.cargado = !quitar;
-        if (quitar){
+        if (quitar) {
           selecciones.editable = false,
-          selecciones.horaFin = '';
+            selecciones.horaFin = '';
           selecciones.horaInicio = '';
           selecciones.turnos = []
-        }else{
+        } else {
           selecciones.turnos = generarDisponible(horaInicio as Hora, horaFin as Hora)
         }
         this.cronograma.id = especialista.id;
@@ -80,8 +79,8 @@ export class HorariosEspecialistaComponent implements OnInit {
     }
   }
 
-  public  quitar(dia: Dia):void{
-    this.cargarhorario(dia,true);
+  public quitar(dia: Dia): void {
+    this.cargarhorario(dia, true);
   }
 
 }

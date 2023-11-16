@@ -30,7 +30,7 @@ export class CronogramaTurnosDBService {
 
 
   getDataQuincena(): Promise<CronogrmaQuincena | null> {
-    const docs = doc(this.dataRefQuincena, 'jYpcBeayXrSP0gxgoONS');
+    const docs = doc(this.dataRefQuincena, 'yh915kxj5kzbatVIGvd2');
     return getDoc(docs)
       .then((docSnap) => {
         if (docSnap.exists()) {
@@ -43,7 +43,7 @@ export class CronogramaTurnosDBService {
   }
 
   modificarQuincena(dato: CronogrmaQuincena) {
-    const docs = doc(this.dataRef, dato.id);
+    const docs = doc(this.dataRefQuincena, dato.id);
     updateDoc(docs, {
       quincena: dato.quincena
     });

@@ -169,6 +169,13 @@ export function ordenarEspecialistas(cronogramas: CronogramaEspecialista[]): Cro
   });
 }
 
+export function esFechaVieja(fecha: string): boolean {
+  const fechaParametro = parsearFecha(fecha);
+  const fechaActual = new Date();
+
+  return fechaParametro.getTime() < fechaActual.getTime();
+}
+
 function parsearFecha(fechaString: string): Date {
   const [dia, mes, ano] = fechaString.split('/').map(Number);
 

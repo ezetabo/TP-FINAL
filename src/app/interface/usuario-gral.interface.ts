@@ -13,7 +13,6 @@ export interface UsuarioGral{
   Autorizado: boolean;
   Imagen2: string;
   ObraSocial: string;
-
 }
 
 export interface Especialista{
@@ -21,4 +20,9 @@ export interface Especialista{
   Nombre: string;
   Apellido: string;
   Especialidades: string[];
+}
+export interface Paciente{
+  id: string;
+  Nombre: string;
+  Apellido: string;
 }

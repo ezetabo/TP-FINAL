@@ -23,6 +23,16 @@ const routes: Routes = [
         // canActivate: [IsAdminGuard]
       },
       {
+        path: 'solicitar-turno',
+        loadChildren: () => import('../horarios/horarios-turnos/horarios-turnos.module').then(m => m.HorariosTurnosModule),
+        // canActivate: [IsAdminGuard]
+      },
+      {
+        path: 'mis-turnos',
+        loadChildren: () => import('../mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule),
+        // canActivate: [IsAdminGuard]
+      },
+      {
         path: '**',
         redirectTo: 'home',
       }

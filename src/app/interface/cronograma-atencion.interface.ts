@@ -10,7 +10,6 @@ export interface CronogramaAtencion {
   id: string,
   fecha: Fecha,
   turnos: EspecialistaTurnos[]
-
 }
 
 export interface EspecialistaTurnos {
@@ -20,3 +19,6 @@ export interface EspecialistaTurnos {
 export function deepCopy<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj));
 }
+
+
+

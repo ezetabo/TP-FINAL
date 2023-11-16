@@ -1,0 +1,33 @@
+
+<div class="row m-3">
+
+  <div class="col-6">
+    <app-tabla-turnos [lista]="turnos" (opcion)="getTurno($event)"></app-tabla-turnos>
+  </div>
+
+  <div class="col-6" *ngIf="miTurno">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{miTurno.dia}} {{miTurno.fecha}} a las
+          {{miTurno.hora}}hs</h5>
+        <p class="card-text">profesional: {{miTurno.especialista.Apellido |
+          cFL}}, {{miTurno.especialista.Nombre | cFL}} </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"
+          *ngIf="(miTurno.resenia && usuario.Rol == 'paciente') || usuario.Rol != 'paciente'">
+          <label for="txtArea">Reseña</label>
+          <textarea id="txtArea" [disabled]="usuario.Rol === 'paciente'" rows="4"
+            style="width: 100%; resize: vertical;">{{miTurno.resenia}}</textarea>
+        </li>
+
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+      </ul>
+      <div class="card-body">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+</div>

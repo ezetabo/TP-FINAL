@@ -14,6 +14,7 @@ export class TablaComponent {
 
   @Input() lista: UsuarioGral[] = [];
   @Input() tipo: string = 'especialista';
+  @Input() mensaje: string = 'Seleccione un tipo de usuario para mostrar.';
 
 
   constructor() { }

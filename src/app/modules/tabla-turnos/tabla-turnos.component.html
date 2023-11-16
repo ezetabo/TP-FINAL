@@ -1,0 +1,31 @@
+<div class="table-container">
+  <div *ngIf="lista.length === 0; else table"
+    class="alert alert-warning text-center">
+    {{mensaje}}
+  </div>
+  <ng-template #table>
+    <div class="table-responsive">
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>fecha</th>
+            <th>dia</th>
+            <th>hora</th>
+            <th>estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let turno of lista ; let i = index"
+            (click)="getOpcion(turno)">
+            <td [ngClass]="getRowClass(i)">{{ i + 1 }}</td>
+            <td [ngClass]="getRowClass(i)">{{ turno.fecha }}</td>
+            <td [ngClass]="getRowClass(i)">{{ turno.dia }}</td>
+            <td [ngClass]="getRowClass(i)">{{ turno.hora }}</td>
+            <td [ngClass]="getEstadoClase(turno.estado)"><b>{{ turno.estado }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+</div>
