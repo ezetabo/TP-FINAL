@@ -2,13 +2,12 @@ import { Especialista } from "./usuario-gral.interface";
 
 
 export interface CronogramaEspecialista {
-  id: string,
   especialista: Especialista,
   misHorarios: diario[];
 }
 
-export interface Fecha{
-  dia:Dia,
+export interface Fecha {
+  dia: Dia,
   fecha: string
 }
 
@@ -27,11 +26,10 @@ export enum Dia {
   domingo = 'domingo',
   lunes = 'lunes', martes = 'martes',
   miercoles = 'miercoles', jueves = 'jueves',
-   viernes = 'viernes', sabado = 'sabado'
+  viernes = 'viernes', sabado = 'sabado'
 }
 
 export interface diario {
-  id:string,
   nombre: Dia,
   editable: boolean,
   cargado: boolean,

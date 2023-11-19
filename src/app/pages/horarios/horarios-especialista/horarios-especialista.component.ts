@@ -16,15 +16,14 @@ import { generarDisponible } from '../../../interface/horario-laboral.interface'
 export class HorariosEspecialistaComponent implements OnInit {
 
   public cronograma: CronogramaEspecialista = {
-    id: '',
     especialista: { id: '', Nombre: '', Apellido: '', Especialidades: [] },
     misHorarios: [
-      { nombre: Dia.lunes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
-      { nombre: Dia.martes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
-      { nombre: Dia.miercoles, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
-      { nombre: Dia.jueves, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
-      { nombre: Dia.viernes, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] },
-      { nombre: Dia.sabado, editable: false, cargado: false, horaInicio: '', horaFin: '', id: '', turnos: [] }
+      { nombre: Dia.lunes, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
+      { nombre: Dia.martes, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
+      { nombre: Dia.miercoles, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
+      { nombre: Dia.jueves, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
+      { nombre: Dia.viernes, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
+      { nombre: Dia.sabado, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] }
     ]
   }
 
@@ -63,14 +62,13 @@ export class HorariosEspecialistaComponent implements OnInit {
         const especialista: Especialista = { id: id, Nombre: Nombre, Apellido: Apellido, Especialidades: Especialidades };
         selecciones.cargado = !quitar;
         if (quitar) {
-          selecciones.editable = false,
-            selecciones.horaFin = '';
+          selecciones.editable = false;
+          selecciones.horaFin = '';
           selecciones.horaInicio = '';
           selecciones.turnos = []
         } else {
           selecciones.turnos = generarDisponible(horaInicio as Hora, horaFin as Hora)
         }
-        this.cronograma.id = especialista.id;
         this.cronograma.especialista = especialista;
         this.crn.addData(this.cronograma);
       } else {

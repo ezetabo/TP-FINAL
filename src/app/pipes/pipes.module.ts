@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CapitalizeFLPipe } from './capitalizeFL.pipe';
+import { CapitalizeFLPipe } from './capitalize-fL.pipe';
 import { OrdenarCronogramaPipe } from './ordenar-cronograma.pipe';
 import { OrdenarEspecialistasPipe } from './ordenar-especialistas.pipe';
 import { OrdenarListaStringPipe } from './ordenar-lista-string.pipe';

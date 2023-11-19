@@ -8,6 +8,10 @@ const routes: Routes = [
     path: '', component: HomeComponent,
     children: [
       {
+        path: '',
+        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioModule),
+      },
+      {
         path: 'seccion-usuarios',
         loadChildren: () => import('../seccion-usuarios/seccion-usuarios.module').then(m => m.SeccionUsuariosModule),
         canActivate: [IsAdminGuard]

@@ -31,7 +31,7 @@ export class MisTurnosComponent implements OnInit {
 
   constructor(private trnServ:TurnosDBService, private msj: MensajeroService){}
   ngOnInit(): void {
-    // this.usuario = this.msj.getCurrentUser();
+    this.usuario = this.msj.getCurrentUser();
     this.trnServ.getData(this.usuario).subscribe(x=>{
       this.turnos =x;
     });

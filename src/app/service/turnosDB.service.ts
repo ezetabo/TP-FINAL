@@ -2,8 +2,9 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Turno } from '../interface/turno.interface';
+import { Estado, Turno } from '../interface/turno.interface';
 import { UsuarioGral } from '../interface/usuario-gral.interface';
+import { esFechaVieja } from '../utils/listas';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +21,35 @@ export class TurnosDBService {
     setDoc(docs, newData);
   }
 
-  getData(user:UsuarioGral): Observable<Turno[]> {
+  getData(user: UsuarioGral): Observable<Turno[]> {
     return new Observable<Turno[]>((observer) => {
       onSnapshot(this.dataRef, (snap) => {
-        const Turnos: Turno[] = [];
-        snap.docChanges().forEach(x => {
-          const one = x.doc.data() as Turno;
-          if((user.Rol == 'paciente' && one.paciente.id == user.id) ||
-             (user.Rol == 'especialista' && one.especialista.id == user.id) ||
-              user.Rol == 'admin'){
-            Turnos.push(one);
+        const turnos: Turno[] = snap.docChanges()
+          .map(change => change.doc.data() as Turno)
+          .filter(one => this.cumpleCondiciones(one, user));
+        turnos.forEach(turno => {
+          if (esFechaVieja(turno.fecha)) {
+            turno.estado = Estado.vencido;
           }
         });
-        observer.next(Turnos);
+        observer.next(turnos);
+      });
+    });
+  }
+
+  private cumpleCondiciones(turno: Turno, user: UsuarioGral): boolean {
+    return (
+      (user.Rol === 'paciente' && turno.paciente.id === user.id) ||
+      (user.Rol === 'especialista' && turno.especialista.id === user.id) ||
+      user.Rol === 'admin'
+    );
+  }
+
+  getAllData(): Observable<Turno[]> {
+    return new Observable<Turno[]>((observer) => {
+      onSnapshot(this.dataRef, (snap) => {
+        const turnos: Turno[] = snap.docs.map(doc => doc.data() as Turno);
+        observer.next(turnos);
       });
     });
   }
@@ -44,7 +61,7 @@ export class TurnosDBService {
     });
   }
 
-  borrar(dato:Turno) {
+  borrar(dato: Turno) {
     const docs = doc(this.dataRef, dato.id);
     deleteDoc(docs);
   }

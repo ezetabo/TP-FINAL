@@ -8,7 +8,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,

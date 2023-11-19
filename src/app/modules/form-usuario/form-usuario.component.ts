@@ -7,6 +7,7 @@ import { ObraSocialDBService } from 'src/app/service/obraSocialDB.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { ordenarLista } from 'src/app/utils/listas';
 import { ValidatorsService } from 'src/app/validators/validators.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -56,6 +57,8 @@ export class FormUsuarioComponent implements OnInit {
     ObraSocial: ['', [Validators.required]],
   });
 
+  public claveSitio: string = environment.claveCaptcha.claveSitio;
+  public token: string = '';
 
   constructor(private fb: FormBuilder, private vs: ValidatorsService, private storageService: StorageService,
     private espDB: EspcialidadDBService, private obrasDB: ObraSocialDBService) { }
@@ -180,5 +183,9 @@ export class FormUsuarioComponent implements OnInit {
     this.espDB.getData().subscribe(x => {
       this.listaEsp = ordenarLista(x)
     });
+  }
+
+  respuesta(dato: string) {
+    this.token = dato;
   }
 }

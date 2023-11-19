@@ -19,15 +19,10 @@ export function getEspecialidad(): string[] {
     'Hematologia',
     'Hepatologia',
     'Infectologia',
-    'Medicina aeroespacial',
     'Medicina del deporte',
     'Medicina familiar y comunitaria',
     'Medicina fisica y rehabilitación',
-    'Medicina forense',
     'Medicina intensiva',
-    'Medicina interna',
-    'Medicina preventiva y salud publica',
-    'Medicina del trabajo',
     'Nefrologia',
     'Neumologia',
     'Neurologia',
@@ -176,9 +171,8 @@ export function esFechaVieja(fecha: string): boolean {
   return fechaParametro.getTime() < fechaActual.getTime();
 }
 
-function parsearFecha(fechaString: string): Date {
+export function parsearFecha(fechaString: string): Date {
   const [dia, mes, ano] = fechaString.split('/').map(Number);
-
   const fechaParseada = new Date(ano + 2000, mes - 1, dia);
   return fechaParseada;
 }

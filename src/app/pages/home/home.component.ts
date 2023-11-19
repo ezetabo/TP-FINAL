@@ -41,6 +41,11 @@ export class HomeComponent implements OnInit {
   }
 
 
+home(){
+  this.rtr.navigateByUrl('home')
+}
+
+
   navegar(url: string): void {
 
     this.msj.reset();

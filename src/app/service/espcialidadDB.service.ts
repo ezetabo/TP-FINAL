@@ -38,7 +38,7 @@ export class EspcialidadDBService {
     });
   }
 
-  borrar(dato:Lista) {
+  borrar(dato: Lista) {
     const docs = doc(this.dataRef, dato.id);
     deleteDoc(docs);
   }

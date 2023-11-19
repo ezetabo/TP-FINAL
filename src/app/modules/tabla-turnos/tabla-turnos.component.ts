@@ -26,10 +26,12 @@ export class TablaTurnosComponent {
         return 'bg-danger text-light';
       case Estado.aceptado:
         return 'bg-success text-light';
-      case Estado.reservado:
+      case Estado.pendiente:
         return 'bg-info';
       case Estado.finalizado:
         return 'bg-secondary';
+      case Estado.vencido:
+        return 'bg-warning';
     }
   }
 

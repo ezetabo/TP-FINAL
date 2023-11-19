@@ -338,10 +338,17 @@
 
             </div>
           </div>
-          <div class="row mt-3">
+
+
+
+
+
+          <div class="row mt-3" >
             <hr>
+            <re-captcha (resolved)="respuesta($event)"
+            [siteKey]= "claveSitio" ></re-captcha>
             <button class="btn btn-success btn-block" type="submit"
-              style="font-size: 1rem;">Crear</button>
+              style="font-size: 1rem;" *ngIf="token">Crear</button>
           </div>
         </form>
       </div>

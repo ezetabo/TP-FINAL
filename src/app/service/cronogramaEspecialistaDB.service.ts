@@ -15,32 +15,31 @@ export class CronogramaEspecialistaDBService {
   constructor(private fs: Firestore) { }
 
   addData(newData: CronogramaEspecialista) {
-    const docs = doc(this.dataRef, newData.id);
+    const docs = doc(this.dataRef, newData.especialista.id);
     setDoc(docs, newData);
   }
 
   getData(): Observable<CronogramaEspecialista[]> {
     return new Observable<CronogramaEspecialista[]>((observer) => {
       onSnapshot(this.dataRef, (snap) => {
-        const Cronogramas: CronogramaEspecialista[] = [];
-        snap.docChanges().forEach(x => {
-          const one = x.doc.data() as CronogramaEspecialista;
-          Cronogramas.push(one);
-        });
-        observer.next(Cronogramas);
+        const cronogramas: CronogramaEspecialista[] = snap.docChanges()
+          .map(change => change.doc.data() as CronogramaEspecialista)
+          .filter(one => one.misHorarios.some(horario => horario.cargado));
+        observer.next(cronogramas);
       });
     });
   }
 
+
   modificar(dato: CronogramaEspecialista) {
-    const docs = doc(this.dataRef, dato.id);
+    const docs = doc(this.dataRef, dato.especialista.id);
     updateDoc(docs, {
-     misHorarios:dato.misHorarios
+      misHorarios: dato.misHorarios
     });
   }
 
-  borrar(dato:CronogramaEspecialista) {
-    const docs = doc(this.dataRef, dato.id);
+  borrar(dato: CronogramaEspecialista) {
+    const docs = doc(this.dataRef, dato.especialista.id);
     deleteDoc(docs);
   }
 

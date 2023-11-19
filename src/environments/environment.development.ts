@@ -21,6 +21,9 @@ export const environment = {
       email:'pihaw94809@jybra.com',
       password:'123456'
     }
+  },
+  claveCaptcha: {
+    claveSitio:'6LflVRQpAAAAAKX6qf6lPgVAQfRy-08P-esZEJKa'
   }
 
 };

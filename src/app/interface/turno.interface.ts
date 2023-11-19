@@ -3,7 +3,7 @@ import { Especialista, Paciente } from "./usuario-gral.interface";
 
 
 export interface Turno {
-  id:string
+  id: string
   especialidad: string,
   especialista: Especialista,
   paciente: Paciente,
@@ -17,12 +17,13 @@ export interface Turno {
   hora: Hora,
 }
 
-export enum Estado{
+export enum Estado {
   cancelado = 'cancelado',
   aceptado = 'aceptado',
   rechazado = 'rechazado',
-  reservado = 'reservado',
+  pendiente = 'pendiente',
   finalizado = 'finalizado',
+  vencido = 'vencido'
 }
 
 
