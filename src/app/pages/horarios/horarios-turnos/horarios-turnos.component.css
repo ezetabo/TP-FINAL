@@ -11,3 +11,32 @@
   width: 10rem;
   height: 10rem;
 }
+
+.foto{
+  width: 10rem;
+  height: 10rem;
+}
+
+.especialidades {
+  width: 10rem;
+  height: 5rem;
+  transition: transform 0.3s;
+}
+
+.especialidades:hover,
+.especialidades:active {
+  transform: scale(0.9);
+}
+
+
+.nombre-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: ghostwhite;
+}
+
+.btTurnos{
+  width: 100px;
+  height: 100px;
+}

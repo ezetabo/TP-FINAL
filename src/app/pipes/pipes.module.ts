@@ -5,6 +5,10 @@ import { OrdenarCronogramaPipe } from './ordenar-cronograma.pipe';
 import { OrdenarEspecialistasPipe } from './ordenar-especialistas.pipe';
 import { OrdenarListaStringPipe } from './ordenar-lista-string.pipe';
 import { OrdenarUsuariosGralPipe } from './ordenar-usuarios-gral.pipe';
+import { OrdenarMedicosPipe } from './ordenar-medicos.pipe';
+import { ImagenEspGenericaPipe } from './imagen-esp-generica.pipe';
+import { FechaFormatPipe } from './fecha-format.pipe';
+import { HoraFormatPipe } from './hora-format.pipe';
 
 
 
@@ -14,7 +18,11 @@ import { OrdenarUsuariosGralPipe } from './ordenar-usuarios-gral.pipe';
     OrdenarCronogramaPipe,
     OrdenarEspecialistasPipe,
     OrdenarListaStringPipe,
-    OrdenarUsuariosGralPipe
+    OrdenarUsuariosGralPipe,
+    OrdenarMedicosPipe,
+    ImagenEspGenericaPipe,
+    FechaFormatPipe,
+    HoraFormatPipe
   ],
   imports: [
     CommonModule
@@ -24,7 +32,11 @@ import { OrdenarUsuariosGralPipe } from './ordenar-usuarios-gral.pipe';
     OrdenarCronogramaPipe,
     OrdenarEspecialistasPipe,
     OrdenarListaStringPipe,
-    OrdenarUsuariosGralPipe
+    OrdenarUsuariosGralPipe,
+    OrdenarMedicosPipe,
+    ImagenEspGenericaPipe,
+    FechaFormatPipe,
+    HoraFormatPipe
   ]
 })
 export class PipesModule { }

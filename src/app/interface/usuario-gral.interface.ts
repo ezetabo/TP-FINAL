@@ -19,10 +19,13 @@ export interface Especialista{
   id: string;
   Nombre: string;
   Apellido: string;
+  Imagen:string;
   Especialidades: string[];
 }
 export interface Paciente{
   id: string;
   Nombre: string;
   Apellido: string;
+  Imagen: string;
+  Imagen2: string;
 }

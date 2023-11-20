@@ -16,7 +16,7 @@ import { generarDisponible } from '../../../interface/horario-laboral.interface'
 export class HorariosEspecialistaComponent implements OnInit {
 
   public cronograma: CronogramaEspecialista = {
-    especialista: { id: '', Nombre: '', Apellido: '', Especialidades: [] },
+    especialista: { id: '', Nombre: '', Apellido: '',Imagen:'' ,Especialidades: [] },
     misHorarios: [
       { nombre: Dia.lunes, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
       { nombre: Dia.martes, editable: false, cargado: false, horaInicio: '', horaFin: '', turnos: [] },
@@ -58,8 +58,9 @@ export class HorariosEspecialistaComponent implements OnInit {
     if (selecciones) {
       const { horaInicio, horaFin } = selecciones;
       if (validarHoras(horaInicio as Hora, horaFin as Hora) || quitar) {
-        const { id, Nombre, Apellido, Especialidades } = this.msj.getCurrentUser();
-        const especialista: Especialista = { id: id, Nombre: Nombre, Apellido: Apellido, Especialidades: Especialidades };
+        const { id, Nombre, Apellido, Especialidades,Imagen } = this.msj.getCurrentUser();
+        const especialista: Especialista = { id: id, Nombre: Nombre, Apellido: Apellido, Especialidades: Especialidades,
+        Imagen:Imagen};
         selecciones.cargado = !quitar;
         if (quitar) {
           selecciones.editable = false;

@@ -26,10 +26,11 @@ export class HorariosTurnosComponent implements OnInit {
   public turnos: Turno[] = [];
 
   public listaEspecialidaes: Lista[] = [];
+  public listaEspeMed: Lista[] = [];
   public especialidadElegida: string = "";
-  public filtro: string = '';
   public paciente: Paciente | null = null;
   public usuario: UsuarioGral | null = null;
+  public especialista: Especialista | null = null;
   public pacientes: UsuarioGral[] = [];
 
   constructor(private crnEsp: CronogramaEspecialistaDBService, private usS: UsuarioGralDBService,
@@ -46,7 +47,8 @@ export class HorariosTurnosComponent implements OnInit {
     });
     this.usuario = this.msj.getCurrentUser();
     if (this.usuario.Rol == 'paciente') {
-      this.paciente = { id: this.usuario.id, Nombre: this.usuario.Nombre, Apellido: this.usuario.Apellido };
+      this.paciente = { id: this.usuario.id, Nombre: this.usuario.Nombre, Apellido: this.usuario.Apellido,
+      Imagen: this.usuario.Imagen, Imagen2: this.usuario.Imagen2};
     }
     this.especialidadesDB.getData().subscribe(x => this.listaEspecialidaes = x);
     this.crnEsp.getData().subscribe(x => {
@@ -80,7 +82,6 @@ export class HorariosTurnosComponent implements OnInit {
       this.turnos.forEach((x) => {
         if (x.especialista.id == esp.id && x.fecha == fecha.fecha && x.hora == hr.hora) {
           disponible = false;
-
         }
       });
     }
@@ -97,31 +98,25 @@ export class HorariosTurnosComponent implements OnInit {
     }
   }
 
-  filtrarPorEspecialista(esp: Especialista) {
-    this.mostrar = this.mostrar.filter((cronograma) => {
-      cronograma.turnos = cronograma.turnos.filter(turno => turno.especialista.id === esp.id);
+  filtrarPorEspecialista(esp: Especialista): void {
+    esp.Especialidades.forEach(x => {
+      this.listaEspecialidaes.forEach(y => {
+        if (y.nombre.toLowerCase() == x.toLowerCase()) {
+          this.listaEspeMed.push(y);
+        }
+      });
+    });
+    console.log(this.listaEspeMed);
+    this.especialista = esp;
+  }
+
+  obtnerTurnos(es:string){
+    this.especialidadElegida = es;
+   this.mostrar = this.mostrar.filter((cronograma) => {
+      cronograma.turnos = cronograma.turnos.filter(turno => turno.especialista.id === this.especialista?.id);
       return cronograma.turnos.length > 0;
     });
     this.switchear();
-  }
-
-  filtrarPorEspecialidad(especialidadDeseada: string = 'cardiologia'): void {
-    this.especialidadElegida = especialidadDeseada;
-    this.mostrar = this.mostrar.filter((cronograma) => {
-      cronograma.turnos = cronograma.turnos.filter(turno => turno.especialista.Especialidades.some((esp) =>
-        esp.toLowerCase() == especialidadDeseada.toLowerCase()));
-      return cronograma.turnos.length > 0;
-    });
-    this.switchear();
-  }
-
-
-
-
-
-
-  filtrar(tipo: string = '') {
-    this.filtro = tipo;
   }
 
   elegirTurno(horario: Horario, dia: CronogramaAtencion) {
@@ -158,7 +153,7 @@ export class HorariosTurnosComponent implements OnInit {
           text: "proceso realizado correctamente, se encuentra esperando la aprobacionde un profesional.",
           icon: "success"
 
-        }).then(()=>this.clean());
+        }).then(() => this.clean());
       } else {
         this.clean();
       }
@@ -172,20 +167,22 @@ export class HorariosTurnosComponent implements OnInit {
   clean() {
     this.switchear();
     this.especialidadElegida = '';
-    this.filtro = '';
     this.mostrar = [];
+    this.especialista = null;
+    this.listaEspeMed = [];
     if (this.usuario!.Rol == 'admin') {
       this.paciente = null;
     }
     this.cargarTurnos();
   }
 
-
   seleccionarPaciente(pac: UsuarioGral) {
     this.paciente = {
       id: pac.id,
       Nombre: pac.Nombre,
-      Apellido: pac.Apellido
+      Apellido: pac.Apellido,
+      Imagen: pac.Imagen,
+      Imagen2: pac.Imagen2,
     }
   }
 

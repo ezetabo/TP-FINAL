@@ -1,6 +1,94 @@
 
 <div class="row m-3">
 
+  <div class="container" >
+    <div class="row align-items-md-stretch p-5">
+      <div class="col-md-6 especialista">
+        <div
+          class="card mx-auto d-flex justify-content-center align-items-center p-2"
+          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+          <div class="card-body">
+            <label>
+              <img class="imagenes"
+                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
+                alt
+                (click)="filtrar('especialista')">
+            </label>
+          </div>
+          <b><span>Especialistas</span></b>
+        </div>
+      </div>
+
+      <div class="col-md-6 paciente">
+        <div
+          class="card mx-auto d-flex justify-content-center align-items-center p-2"
+          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+          <div class="card-body">
+            <label>
+              <img class="imagenes"
+                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
+                alt
+                (click)="filtrar('especialidad')">
+            </label>
+          </div>
+          <b><span>Especialidades</span></b>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-12 text-center">
+        <hr>
+        <button *ngFor="let tipo of especialidades | ordenarListaString"
+          class="btn btn-primary m-2"
+          (click)="filtrarPorEspecialidad(tipo.nombre)">
+          {{tipo.nombre | cFL}}
+        </button>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-12 text-center">
+        <hr>
+        <button
+          *ngFor="let tipo of especialistas | ordenarMedicos "
+          class="btn btn-primary m-2"
+          (click)="filtrarPorEspecialista(tipo)">
+          {{tipo.Apellido | cFL}} {{tipo.Nombre |
+          cFL}}
+        </button>
+        <hr>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="col-6">
     <app-tabla-turnos [lista]="turnos" (opcion)="getTurno($event)"></app-tabla-turnos>
   </div>

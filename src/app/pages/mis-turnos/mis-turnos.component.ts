@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Lista } from 'src/app/interface/listas.interface';
 import { Turno } from 'src/app/interface/turno.interface';
-import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
+import { Especialista, UsuarioGral } from 'src/app/interface/usuario-gral.interface';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { TurnosDBService } from 'src/app/service/turnosDB.service';
 
@@ -11,9 +12,9 @@ import { TurnosDBService } from 'src/app/service/turnosDB.service';
 })
 export class MisTurnosComponent implements OnInit {
 
-  public turnos:Turno[] = [];
+  public turnos: Turno[] = [];
   public miTurno: Turno | null = null;
-  public usuario:UsuarioGral= {
+  public usuario: UsuarioGral = {
     id: 'MvophzEYGpT8HYGIR1Hx',
     Nombre: 'Antia',
     Apellido: 'Pino',
@@ -22,24 +23,42 @@ export class MisTurnosComponent implements OnInit {
     Email: '',
     Password: '',
     Imagen: '',
-    Rol: 'paciente',
-    Especialidades:[],
+    Rol: 'admin',
+    Especialidades: [],
     Autorizado: true,
     Imagen2: '',
     ObraSocial: '',
   }
 
-  constructor(private trnServ:TurnosDBService, private msj: MensajeroService){}
+public especialistas:Especialista[] = [];
+public especialidades:Lista[] = [];
+
+
+  constructor(private trnServ: TurnosDBService, private msj: MensajeroService) { }
   ngOnInit(): void {
-    this.usuario = this.msj.getCurrentUser();
-    this.trnServ.getData(this.usuario).subscribe(x=>{
-      this.turnos =x;
+    //this.usuario = this.msj.getCurrentUser();
+    this.trnServ.getData(this.usuario).subscribe(x => {
+      this.turnos = x;
     });
   }
 
-  getTurno(turno:Turno){
-    this.miTurno  = turno;
+  getTurno(turno: Turno) {
+    this.miTurno = turno;
   }
 
+  filtrar(tipo:string){
 
+  }
+
+  filtrarPorEspecialista(esp: Especialista) {
+    this.turnos.forEach(trn=>{
+      this.especialistas.push(trn.especialista)
+    });
+  }
+
+  filtrarPorEspecialidad(nombre: string){
+    this.turnos.forEach(trn=>{
+      this.especialistas.push(trn.especialista)
+    });
+  }
 }
