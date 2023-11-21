@@ -1,121 +1,217 @@
+<div class="container">
+  <div class="row "*ngIf="turnos.length > 0">
+    <div class="container">
+      <div class="row align-items-md-stretch p-5">
 
-<div class="row m-3">
-
-  <div class="container" >
-    <div class="row align-items-md-stretch p-5">
-      <div class="col-md-6 especialista">
-        <div
-          class="card mx-auto d-flex justify-content-center align-items-center p-2"
-          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-          <div class="card-body">
-            <label>
-              <img class="imagenes"
-                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
-                alt
-                (click)="filtrar('especialista')">
-            </label>
+        <div class="col-md-6 especialista" *ngIf="usuario.Rol !='especialista'">
+          <div
+            class="card mx-auto d-flex justify-content-center align-items-center p-2"
+            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+            <div class="card-body">
+              <label>
+                <img class="imagenes"
+                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
+                  alt
+                  (click)="filtrar('especialista')">
+              </label>
+            </div>
+            <b><span>Especialistas</span></b>
           </div>
-          <b><span>Especialistas</span></b>
+        </div>
+
+        <div class="col-md-6 paciente" *ngIf="usuario.Rol =='especialista'">
+          <div
+            class="card mx-auto d-flex justify-content-center align-items-center p-2"
+            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+            <div class="card-body">
+              <label>
+                <img class="imagenes"
+                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fpersonas_1699644430500?alt=media&token=4cf1f2f8-6b05-460c-b897-45de8324b8f8"
+                  alt
+                  (click)="filtrar('paciente')">
+              </label>
+            </div>
+            <b><span>Pacientes</span></b>
+          </div>
+        </div>
+
+        <div class="col-md-6 especialidades">
+          <div
+            class="card mx-auto d-flex justify-content-center align-items-center p-2"
+            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
+            <div class="card-body">
+              <label>
+                <img class="imagenes"
+                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
+                  alt
+                  (click)="filtrar('especialidad')">
+              </label>
+            </div>
+            <b><span>Especialidades</span></b>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-6 paciente">
-        <div
-          class="card mx-auto d-flex justify-content-center align-items-center p-2"
-          style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-          <div class="card-body">
-            <label>
-              <img class="imagenes"
-                src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
-                alt
-                (click)="filtrar('especialidad')">
-            </label>
+      <div class="row" *ngIf="filtro=='especialidad'">
+        <div class="col-12 text-center">
+          <hr>
+          <button
+            *ngFor="let tipo of turnos | filtrarUnicoTurno:'especialidad' | ordenarTurnos: 'especialidad'"
+            class="btn btn-primary m-2"
+            (click)="filtrarPorEspecialidad(tipo)">
+            {{tipo.especialidad| cFL}}
+          </button>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="filtro=='especialista' && usuario.Rol != 'especialista'">
+        <div class="col-12 text-center">
+          <hr>
+          <button
+            *ngFor="let tipo of turnos |filtrarUnicoTurno:'especialista' | ordenarTurnos: 'especialista' "
+            class="btn btn-primary m-2"
+            (click)="filtrarPorEspecialista(tipo)">
+            {{tipo.especialista.Apellido | cFL}}
+            {{tipo.especialista.Nombre|cFL}}
+          </button>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="filtro=='paciente' && usuario.Rol == 'especialista'">
+        <div class="col-12 text-center">
+          <hr>
+          <button
+            *ngFor="let tipo of turnos |filtrarUnicoTurno:'paciente' | ordenarTurnos: 'paciente' "
+            class="btn btn-primary m-2"
+            (click)="filtrarPorPaciente(tipo)">
+            {{tipo.paciente.Apellido | cFL}}
+            {{tipo.paciente.Nombre|cFL}}
+          </button>
+          <hr>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6" *ngIf="verTurnos">
+      <app-tabla-turnos [lista]="turnosFiltrados | ordenarTurnos:'fecha'"
+        (opcion)="getTurno($event)"></app-tabla-turnos>
+    </div>
+
+    <div class="col-6" *ngIf="miTurno">
+      <div class="card card-turno">
+        <div class="card-body card-turno">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <h5 class="card-title"><b>{{miTurno.dia}} {{miTurno.fecha}} a las
+                  {{miTurno.hora}}hs</b></h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <p class="alineacion-derecha">paciente: <i>{{miTurno.paciente.Apellido
+                  | cFL}}, {{miTurno.paciente.Nombre | cFL}}</i></p>
+            </div>
+            <div class="col-12">
+              <p class="card-text">profesional: <b>{{miTurno.especialista.Apellido|cFL}},
+                  {{miTurno.especialista.Nombre | cFL}}</b></p>
+              <p>especialidad: <b>{{miTurno.especialidad | cFL}}</b></p>
+            </div>
           </div>
-          <b><span>Especialidades</span></b>
+        </div>
+
+        <ul class="list-group list-group-flush card-turno">
+
+          <li class="list-group-item card-turno"
+            *ngIf="miTurno.resenia">
+            <label for="txtArea">Reseña: </label>
+            <textarea id="txtArea card-turno" [(ngModel)]="miTurno.resenia"
+              [disabled]="usuario.Rol === 'paciente'"
+              (input)="guardar()"
+              rows="4" style="width: 100%; resize: vertical;">{{miTurno.resenia}}</textarea>
+          </li>
+
+          <li class="list-group-item card-turno"
+            *ngIf="miTurno.diagnostico">
+            <label for="txtArea">Diagnostico: </label>
+            <textarea id="txtArea card-turno" [(ngModel)]="miTurno.diagnostico"
+              [disabled]="usuario.Rol !== 'especialista'"
+              (input)="guardar()"
+              rows="4" style="width: 100%; resize: vertical;">{{miTurno.diagnostico}}</textarea>
+          </li>
+
+          <li class="list-group-item card-turno"
+            *ngIf="usuario.Rol == 'admin' || (usuario.Rol == 'paciente' && miTurno.estado == 'finalizado')">
+            <label for="estrellas">Calificacion: </label>
+            <div class="estrellas">
+              <input type="checkbox" id="estrella1" class="estrella"
+                (click)="calificar(1)" [disabled]="usuario.Rol != 'paciente'"
+                [checked]="miTurno.calificacion >= 1">
+              <label for="estrella1"></label>
+              <input type="checkbox" id="estrella2" class="estrella"
+                (click)="calificar(2)" [disabled]="usuario.Rol != 'paciente'"
+                [checked]="miTurno.calificacion >= 2">
+              <label for="estrella2"></label>
+              <input type="checkbox" id="estrella3" class="estrella"
+                (click)="calificar(3)" [disabled]="usuario.Rol != 'paciente'"
+                [checked]="miTurno.calificacion >= 3">
+              <label for="estrella3"></label>
+              <input type="checkbox" id="estrella4" class="estrella"
+                (click)="calificar(4)" [disabled]="usuario.Rol != 'paciente'"
+                [checked]="miTurno.calificacion >= 4">
+              <label for="estrella4"></label>
+              <input type="checkbox" id="estrella5" class="estrella"
+                (click)="calificar(5)" [disabled]="usuario.Rol != 'paciente'"
+                [checked]="miTurno.calificacion >= 5">
+              <label for="estrella5"></label>
+            </div>
+          </li>
+          <li class="list-group-item card-turno"
+            *ngIf="miTurno.comentario">
+            <label for="area2">Comentarios:</label>
+            <textarea id="txtArea area2 card-turno"
+              [(ngModel)]="miTurno.comentario"
+              (input)="guardar()"
+              rows="4" style="width: 100%; resize: vertical;">{{miTurno.comentario}}</textarea>
+          </li>
+        </ul>
+        <div class="card-body card-turno">
+
+          <button class="btn btn-success m-2"
+            *ngIf="usuario.Rol == 'especialista' && miTurno.estado == 'pendiente' "
+            (click)="aceptar()">
+            Aceptar
+          </button>
+
+          <button class="btn btn-danger m-2"
+            *ngIf="(usuario.Rol == 'paciente' && (miTurno.estado != 'finalizado' &&  miTurno.estado != 'vencido' )
+          || (usuario.Rol != 'paciente' && miTurno.estado == 'pendiente' ))"
+            (click)="cancelar()">
+            Cancelar
+          </button>
+
+          <button class="btn btn-danger m-2"
+            *ngIf="usuario.Rol == 'especialista' && miTurno.estado == 'pendiente' "
+            (click)="rechazar()">
+            Rechazar
+          </button>
+
+          <button class="btn btn-success m-2"
+            *ngIf="usuario.Rol == 'especialista' && miTurno.estado == 'aceptado' "
+            (click)="finalizar()">
+            Finalizar
+          </button>
+
         </div>
       </div>
     </div>
-
-    <div class="row" >
-      <div class="col-12 text-center">
-        <hr>
-        <button *ngFor="let tipo of especialidades | ordenarListaString"
-          class="btn btn-primary m-2"
-          (click)="filtrarPorEspecialidad(tipo.nombre)">
-          {{tipo.nombre | cFL}}
-        </button>
-        <hr>
-      </div>
-    </div>
-
-    <div class="row" >
-      <div class="col-12 text-center">
-        <hr>
-        <button
-          *ngFor="let tipo of especialistas | ordenarMedicos "
-          class="btn btn-primary m-2"
-          (click)="filtrarPorEspecialista(tipo)">
-          {{tipo.Apellido | cFL}} {{tipo.Nombre |
-          cFL}}
-        </button>
-        <hr>
-      </div>
-    </div>
-
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="col-6">
-    <app-tabla-turnos [lista]="turnos" (opcion)="getTurno($event)"></app-tabla-turnos>
+</div>
+<div class="row mt-5">
+  <div class="col-12">
+    <div *ngIf="turnos.length === 0"
+    class="alert alert-warning text-center">
+    No tiene turnos
   </div>
-
-  <div class="col-6" *ngIf="miTurno">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{miTurno.dia}} {{miTurno.fecha}} a las
-          {{miTurno.hora}}hs</h5>
-        <p class="card-text">profesional: {{miTurno.especialista.Apellido |
-          cFL}}, {{miTurno.especialista.Nombre | cFL}} </p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"
-          *ngIf="(miTurno.resenia && usuario.Rol == 'paciente') || usuario.Rol != 'paciente'">
-          <label for="txtArea">Reseña</label>
-          <textarea id="txtArea" [disabled]="usuario.Rol === 'paciente'" rows="4"
-            style="width: 100%; resize: vertical;">{{miTurno.resenia}}</textarea>
-        </li>
-
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
   </div>
 </div>

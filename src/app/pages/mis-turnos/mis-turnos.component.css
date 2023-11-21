@@ -1,4 +1,55 @@
 .imagenes {
-  width: 10rem;
-  height: 10rem;
+  width: 5rem;
+  height: 5rem;
+}
+
+.alineacion-derecha {
+  text-align: right;
+}
+
+.card-turno{
+  background-color: rgb(241, 252, 211);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.estrellas {
+  display: flex;
+}
+
+.estrella {
+  display: none;
+}
+
+.estrella + label:before {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .estrella + label:before {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .estrella + label:before {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.estrella + label:before {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Festrella-vacia_1700509468231?alt=media&token=c505e7a9-500d-48d9-8cb2-e7251eaf5d11');
+}
+
+.estrella:checked + label:before {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Festrella-llena_1700509451151?alt=media&token=00a43e8e-b556-4b80-9d2a-2d6302e8dc30');
 }

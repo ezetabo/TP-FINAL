@@ -89,12 +89,12 @@ export class HorariosTurnosComponent implements OnInit {
   }
 
   inicioCronograma() {
-    for (let index = 0; index < 15; index++) {
+    for (let index = 1; index <= 15; index++) {
       const fecha: Fecha = obtenerFechaActual(index)
       if (fecha.dia == Dia.domingo) {
         continue;
       }
-      this.mostrar.push(this.crearDiaLaboral(obtenerFechaActual(index)));
+      this.mostrar.push(this.crearDiaLaboral(fecha));
     }
   }
 
@@ -135,12 +135,13 @@ export class HorariosTurnosComponent implements OnInit {
         horario.disponible = !horario.disponible;
         const turno: Turno = {
           id: '',
-          especialidad: this.especialidadElegida ? this.especialidadElegida : ' --- ',
+          especialidad: this.especialidadElegida,
           especialista: dia.turnos[0].especialista,
           paciente: this.paciente!,
           estado: Estado.pendiente,
           comentario: '',
           resenia: '',
+          diagnostico:'',
           encuesta: '',
           calificacion: 0,
           fecha: dia.fecha.fecha,

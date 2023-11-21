@@ -10,6 +10,7 @@ export interface Turno {
   estado: Estado,
   comentario: string,
   resenia: string,
+  diagnostico: string,
   encuesta: string,
   calificacion: number,
   fecha: string

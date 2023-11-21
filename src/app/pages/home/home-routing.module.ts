@@ -37,6 +37,11 @@ const routes: Routes = [
         // canActivate: [IsAdminGuard]
       },
       {
+        path: 'mi-perfil',
+        loadChildren: () => import('../mi-perfil/mi-perfil.module').then(m => m.MiPerfilModule),
+        // canActivate: [IsAdminGuard]
+      },
+      {
         path: '**',
         redirectTo: 'home',
       }

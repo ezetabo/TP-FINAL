@@ -9,6 +9,9 @@ import { OrdenarMedicosPipe } from './ordenar-medicos.pipe';
 import { ImagenEspGenericaPipe } from './imagen-esp-generica.pipe';
 import { FechaFormatPipe } from './fecha-format.pipe';
 import { HoraFormatPipe } from './hora-format.pipe';
+import { OrdenarStringsPipe } from './ordenar-strings.pipe';
+import { OrdenarTurnosPipe } from './ordenar-turnos.pipe';
+import { FiltrarUnicoTurnoPipe } from './filtrar-unico-turno.pipe';
 
 
 
@@ -22,7 +25,10 @@ import { HoraFormatPipe } from './hora-format.pipe';
     OrdenarMedicosPipe,
     ImagenEspGenericaPipe,
     FechaFormatPipe,
-    HoraFormatPipe
+    HoraFormatPipe,
+    OrdenarStringsPipe,
+    OrdenarTurnosPipe,
+    FiltrarUnicoTurnoPipe
   ],
   imports: [
     CommonModule
@@ -36,7 +42,10 @@ import { HoraFormatPipe } from './hora-format.pipe';
     OrdenarMedicosPipe,
     ImagenEspGenericaPipe,
     FechaFormatPipe,
-    HoraFormatPipe
+    HoraFormatPipe,
+    OrdenarStringsPipe,
+    OrdenarTurnosPipe,
+    FiltrarUnicoTurnoPipe,
   ]
 })
 export class PipesModule { }

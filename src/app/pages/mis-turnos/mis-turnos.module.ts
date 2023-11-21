@@ -5,6 +5,7 @@ import { MisTurnosRoutingModule } from './mis-turnos-routing.module';
 import { MisTurnosComponent } from './mis-turnos.component';
 import { TablaTurnosModule } from 'src/app/modules/tabla-turnos/tabla-turnos.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     CommonModule,
     MisTurnosRoutingModule,
     TablaTurnosModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ]
 })
 export class MisTurnosModule { }

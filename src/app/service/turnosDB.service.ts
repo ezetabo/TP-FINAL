@@ -57,7 +57,12 @@ export class TurnosDBService {
   modificar(dato: Turno) {
     const docs = doc(this.dataRef, dato.id);
     updateDoc(docs, {
-
+        estado: dato.estado,
+        comentario: dato.comentario,
+        resenia: dato.resenia,
+        diagnostico: dato.diagnostico,
+        encuesta: dato.encuesta,
+        calificacion: dato.calificacion
     });
   }
 
