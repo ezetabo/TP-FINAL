@@ -36,17 +36,9 @@ const routes: Routes = [
 
 
 
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./pages/horarios/horarios-turnos/horarios-turnos.module').then(m => m.HorariosTurnosModule),
-  //   // canActivate: [IsAdminGuard]
-  // },
 
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-  //   // canActivate: [AuthGuard]
-  // }
+
+
 
   // {
   //   path:'', loadChildren: () => import('./pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule),

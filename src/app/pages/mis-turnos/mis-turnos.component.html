@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row "*ngIf="turnos.length > 0">
+  <div class="row " *ngIf="turnos.length > 0">
     <div class="container">
       <div class="row align-items-md-stretch p-5">
 
@@ -65,7 +65,8 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="filtro=='especialista' && usuario.Rol != 'especialista'">
+      <div class="row"
+        *ngIf="filtro=='especialista' && usuario.Rol != 'especialista'">
         <div class="col-12 text-center">
           <hr>
           <button
@@ -79,7 +80,8 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="filtro=='paciente' && usuario.Rol == 'especialista'">
+      <div class="row"
+        *ngIf="filtro=='paciente' && usuario.Rol == 'especialista'">
         <div class="col-12 text-center">
           <hr>
           <button
@@ -167,13 +169,32 @@
             </div>
           </li>
           <li class="list-group-item card-turno"
-            *ngIf="miTurno.comentario">
+            *ngIf="miTurno.comentario || (!miTurno.comentario && usuario.Rol == 'paciente' && miTurno.estado == 'finalizado')">
             <label for="area2">Comentarios:</label>
             <textarea id="txtArea area2 card-turno"
+              [disabled]="!(usuario.Rol == 'paciente' && miTurno.estado == 'finalizado')"
               [(ngModel)]="miTurno.comentario"
               (input)="guardar()"
               rows="4" style="width: 100%; resize: vertical;">{{miTurno.comentario}}</textarea>
           </li>
+
+          <li class="list-group-item card-turno"
+            *ngIf="miTurno.encuesta.experienciaGeneral && usuario.Rol == 'admin'">
+            <label for="area2"><h5>Encuesta:</h5></label>
+            <ul>
+              <li>
+                <label for="area2"><b>Experiencia General: </b><br> {{miTurno.encuesta.experienciaGeneral}} </label>
+              </li>
+              <li>
+                <label for="area2"><b>Acceso y Tiempos de Espera: </b> <br>{{miTurno.encuesta.accesoTiemposEspera}} </label>
+              </li>
+              <li>
+                <label for="area2"><b>Sugerencias: </b> <br>{{miTurno.encuesta.sugerencias}} </label>
+              </li>
+            </ul>
+
+          </li>
+
         </ul>
         <div class="card-body card-turno">
 
@@ -202,6 +223,12 @@
             Finalizar
           </button>
 
+          <button class="btn btn-success m-2"
+            *ngIf="!miTurno.encuesta.accesoTiemposEspera && usuario.Rol == 'paciente' && miTurno.estado == 'finalizado'"
+            (click)="encuesta()">
+            Responder Encuesta
+          </button>
+
         </div>
       </div>
     </div>
@@ -210,8 +237,8 @@
 <div class="row mt-5">
   <div class="col-12">
     <div *ngIf="turnos.length === 0"
-    class="alert alert-warning text-center">
-    No tiene turnos
-  </div>
+      class="alert alert-warning text-center">
+      No tiene turnos
+    </div>
   </div>
 </div>

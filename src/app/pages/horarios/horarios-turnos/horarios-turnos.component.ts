@@ -142,7 +142,7 @@ export class HorariosTurnosComponent implements OnInit {
           comentario: '',
           resenia: '',
           diagnostico:'',
-          encuesta: '',
+          encuesta: {accesoTiemposEspera:'', experienciaGeneral:'',sugerencias:''},
           calificacion: 0,
           fecha: dia.fecha.fecha,
           dia: dia.fecha.dia,

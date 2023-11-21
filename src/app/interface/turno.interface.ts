@@ -11,7 +11,7 @@ export interface Turno {
   comentario: string,
   resenia: string,
   diagnostico: string,
-  encuesta: string,
+  encuesta: Encuesta,
   calificacion: number,
   fecha: string
   dia: Dia,
@@ -25,6 +25,12 @@ export enum Estado {
   pendiente = 'pendiente',
   finalizado = 'finalizado',
   vencido = 'vencido'
+}
+
+export interface Encuesta{
+  experienciaGeneral: string,
+  accesoTiemposEspera: string,
+  sugerencias: string
 }
 
 
