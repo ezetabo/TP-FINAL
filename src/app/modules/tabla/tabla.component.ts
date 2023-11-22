@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
+import { ExcelService } from 'src/app/service/excel-service.service';
 import { sortByApellido } from 'src/app/utils/listas';
 
 @Component({
@@ -15,9 +16,10 @@ export class TablaComponent {
   @Input() lista: UsuarioGral[] = [];
   @Input() tipo: string = 'especialista';
   @Input() mensaje: string = 'Seleccione un tipo de usuario para mostrar.';
+  @Input() verDescargar: boolean = false;
 
 
-  constructor() { }
+  constructor(private dsc:ExcelService) { }
 
   getRowClass(index: number) {
     return index % 2 == 0 ? 'even-row' : 'odd-row';
@@ -34,4 +36,9 @@ export class TablaComponent {
   getOpcion(opcion: UsuarioGral) {
     this.opcion.emit(opcion);
   }
+
+  descargar(us:UsuarioGral){
+    this.dsc.guardarComoExcel(us);
+  }
+
 }

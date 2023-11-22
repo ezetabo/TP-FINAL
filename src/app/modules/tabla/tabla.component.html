@@ -23,9 +23,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of lista  | ordenarUsuariosGral; let i = index"
+          <tr
+            *ngFor="let usuario of lista  | ordenarUsuariosGral; let i = index"
             (click)="getOpcion(usuario)">
-            <td [ngClass]="getRowClass(i)">{{ i + 1 }}</td>
+            <td [ngClass]="getRowClass(i)" *ngIf="verDescargar"><button
+                type="button"
+                class="btn btn-outline-info" (click)="descargar(usuario)">Descargar</button></td>
+            <td [ngClass]="getRowClass(i)" *ngIf="!verDescargar">{{ i + 1 }}</td>
             <td [ngClass]="getRowClass(i)">
               <img [src]="usuario.Imagen" alt="Imagen de usuario"
                 class="imagen">
