@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoriaClinica } from 'src/app/interface/historia-clinica.interface';
 import { Estado, Turno } from 'src/app/interface/turno.interface';
 import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
+import { HistoriaClinicaDBService } from 'src/app/service/historiaClincaDB.service';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { TurnosDBService } from 'src/app/service/turnosDB.service';
 import Swal from 'sweetalert2';
@@ -12,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class MisTurnosComponent implements OnInit {
 
+  public historiaCreada: boolean = false;
+  public verHistoria: boolean = false;
   public turnos: Turno[] = [];
   public miTurno: Turno | null = null;
   public turnosFiltrados: Turno[] = [];
@@ -35,9 +39,13 @@ export class MisTurnosComponent implements OnInit {
   public filtro: String = '';
   public verTurnos: boolean = false;
 
-  constructor(private trnServ: TurnosDBService, private msj: MensajeroService) { }
+  constructor(private trnServ: TurnosDBService, private msj: MensajeroService, private hcDB: HistoriaClinicaDBService) { }
   ngOnInit(): void {
     this.usuario = this.msj.getCurrentUser();
+    this.cargarTurnos();
+  }
+
+  cargarTurnos() {
     this.trnServ.getData(this.usuario).subscribe(x => {
       this.turnos = x;
     });
@@ -99,12 +107,14 @@ export class MisTurnosComponent implements OnInit {
     this.turnosFiltrados = [];
     this.filtro = '';
     this.verTurnos = false;
+    this.cargarTurnos();
   }
 
   async finalizar() {
-    const { value: formValues } = await Swal.fire({
-      title: "Debe completar ambos campos",
-      html: `
+    if (this.historiaCreada) {
+      const { value: formValues } = await Swal.fire({
+        title: "Debe completar ambos campos",
+        html: `
         <div class="container">
           <div class="row m-5">
             <div class="col-5">
@@ -121,31 +131,39 @@ export class MisTurnosComponent implements OnInit {
             </div>
           </div>
         </div>`,
-      focusConfirm: false,
-      preConfirm: () => {
-        const input1 = document.getElementById("swal-input1") as HTMLTextAreaElement;
-        const input2 = document.getElementById("swal-input2") as HTMLTextAreaElement;
-        const valor1: string = input1.value.trim();
-        const valor2: string = input2.value.trim();
-        if (!valor1 || !valor2) {
-          Swal.showValidationMessage("Ambos campos son obligatorios");
+        focusConfirm: false,
+        preConfirm: () => {
+          const input1 = document.getElementById("swal-input1") as HTMLTextAreaElement;
+          const input2 = document.getElementById("swal-input2") as HTMLTextAreaElement;
+          const valor1: string = input1.value.trim();
+          const valor2: string = input2.value.trim();
+          if (!valor1 || !valor2) {
+            Swal.showValidationMessage("Ambos campos son obligatorios");
+          }
+          return [valor1, valor2];
         }
-        return [valor1, valor2];
-      }
-    });
+      });
 
-    if (formValues) {
-      this.miTurno!.resenia = formValues[0];
-      this.miTurno!.diagnostico = formValues[1];
-      this.miTurno!.estado = Estado.finalizado;
-      this.guardar();
-      this.limpiar();
+      if (formValues) {
+        this.miTurno!.resenia = formValues[0];
+        this.miTurno!.diagnostico = formValues[1];
+        this.miTurno!.estado = Estado.finalizado;
+        this.guardar();
+        this.limpiar();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Operacion realizada con exito",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }else{
       Swal.fire({
         position: "center",
-        icon: "success",
-        title: "Operacion realizada con exito",
-        showConfirmButton: false,
-        timer: 1500
+        icon: "warning",
+        title: "Primero debe crear la historia clinica",
+        showConfirmButton: true,
       });
     }
   }
@@ -290,5 +308,23 @@ export class MisTurnosComponent implements OnInit {
     }
   }
 
+  historia() {
+    this.verHistoria = !this.verHistoria;
+    this.verTurnos = !this.verTurnos;
+  }
 
+  crearHistoriaClinica(hc: HistoriaClinica) {
+    if (hc) {
+      this.historiaCreada = true;
+      this.hcDB.addData(hc);
+      this.historia();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Operación realizada con éxito",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }
 }

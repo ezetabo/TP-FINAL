@@ -6,6 +6,7 @@ import { MisTurnosComponent } from './mis-turnos.component';
 import { TablaTurnosModule } from 'src/app/modules/tabla-turnos/tabla-turnos.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { FormsModule } from '@angular/forms';
+import { FormHistoriaClinicaModule } from 'src/app/modules/form-historia-clinica/form-historia-clinica.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     MisTurnosRoutingModule,
     TablaTurnosModule,
     PipesModule,
-    FormsModule
+    FormsModule,
+    FormHistoriaClinicaModule,
   ]
 })
 export class MisTurnosModule { }

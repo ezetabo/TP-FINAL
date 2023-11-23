@@ -1,4 +1,4 @@
-<div class="container-fluid  mt-3" *ngIf="ver">
+<div class="container-fluid  mt-3" *ngIf="ver && !historia">
   <div class="col-xl-8 col-md-8 col-sm-10 mx-auto" *ngIf="usuario">
     <div class="bg-white shadow rounded overflow-hidden">
       <div class="px-4 pt-0 pb-4 bg-dark">
@@ -8,8 +8,9 @@
               class="rounded mb-2 img-thumbnail foto"><a routerLink="/home/cargar-horario"
               class="btn btn-info btn-sm btn-block float-end"
               *ngIf="usuario.Rol=='especialista'">Mis horarios</a>
-              <a routerLink="/home/historia"
+              <a
               class="btn btn-info btn-sm btn-block float-end"
+              (click)="verHistoria()"
               *ngIf="usuario.Rol=='paciente'">Historia Clinica</a>
           </div>
           <div class="media-body mb-5 text-white">
@@ -65,3 +66,5 @@
   </div>
 </div>
 <app-spinner *ngIf="!ver" ></app-spinner>
+
+<app-form-historia-clinica *ngIf="historia" [paciente]="paciente" [readOnlyMode]="true"></app-form-historia-clinica>

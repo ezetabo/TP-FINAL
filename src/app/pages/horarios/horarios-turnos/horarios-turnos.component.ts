@@ -47,8 +47,11 @@ export class HorariosTurnosComponent implements OnInit {
     });
     this.usuario = this.msj.getCurrentUser();
     if (this.usuario.Rol == 'paciente') {
-      this.paciente = { id: this.usuario.id, Nombre: this.usuario.Nombre, Apellido: this.usuario.Apellido,
-      Imagen: this.usuario.Imagen, Imagen2: this.usuario.Imagen2};
+      this.paciente = {
+        id: this.usuario.id, Nombre: this.usuario.Nombre, Apellido: this.usuario.Apellido,
+        Imagen: this.usuario.Imagen, Imagen2: this.usuario.Imagen2, ObraSocial: this.usuario.ObraSocial,
+        Edad: this.usuario.Edad, Email: this.usuario.Email
+      };
     }
     this.especialidadesDB.getData().subscribe(x => this.listaEspecialidaes = x);
     this.crnEsp.getData().subscribe(x => {
@@ -110,9 +113,9 @@ export class HorariosTurnosComponent implements OnInit {
     this.especialista = esp;
   }
 
-  obtnerTurnos(es:string){
+  obtnerTurnos(es: string) {
     this.especialidadElegida = es;
-   this.mostrar = this.mostrar.filter((cronograma) => {
+    this.mostrar = this.mostrar.filter((cronograma) => {
       cronograma.turnos = cronograma.turnos.filter(turno => turno.especialista.id === this.especialista?.id);
       return cronograma.turnos.length > 0;
     });
@@ -141,8 +144,8 @@ export class HorariosTurnosComponent implements OnInit {
           estado: Estado.pendiente,
           comentario: '',
           resenia: '',
-          diagnostico:'',
-          encuesta: {accesoTiemposEspera:'', experienciaGeneral:'',sugerencias:''},
+          diagnostico: '',
+          encuesta: { accesoTiemposEspera: '', experienciaGeneral: '', sugerencias: '' },
           calificacion: 0,
           fecha: dia.fecha.fecha,
           dia: dia.fecha.dia,
@@ -184,6 +187,9 @@ export class HorariosTurnosComponent implements OnInit {
       Apellido: pac.Apellido,
       Imagen: pac.Imagen,
       Imagen2: pac.Imagen2,
+      ObraSocial: pac.ObraSocial,
+      Edad: pac.Edad,
+      Email: pac.Email
     }
   }
 

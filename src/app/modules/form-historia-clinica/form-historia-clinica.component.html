@@ -1,0 +1,135 @@
+
+<div class="row justify-content-center mt-3" *ngIf="historiaClinica || !readOnlyMode">
+  <div class="col-md-9 p-3"
+    style="background-color: rgb(220, 245, 243); border-radius: 2%;">
+    <h2 class="text-center"><b>Historia Clinica</b></h2>
+    <img class="imagen" [src]="paciente!.Imagen" alt>
+    <h2 style="font-size: 1.5rem;">Paciente: <i>{{paciente!.Nombre | cFL}}
+        {{paciente!.Apellido | cFL}} </i></h2>
+    <hr>
+    <div class="row">
+      <div class="col-12">
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <!-- Campo altura -->
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="altura" class="form-label">Altura</label>
+                <input type="number"
+                  [readonly]="readOnlyMode"
+                  [attr.unselectable]="readOnlyMode ? 'on' : null"
+                  step="1"
+                  class="form-control"
+                  formControlName="altura" placeholder="Ingrese la altura"
+                  id="altura">
+                <span class="form-text text-danger"
+                  *ngIf="isValidField('altura') && !readOnlyMode">Debe ser numerico entre 50 y
+                  230cm</span>
+              </div>
+            </div>
+
+            <!-- Campo peso -->
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="peso" class="form-label">Peso</label>
+                <input type="number"
+                  [readonly]="readOnlyMode"
+                  [attr.unselectable]="readOnlyMode ? 'on' : null"
+                  step="0.1"
+                  class="form-control"
+                  formControlName="peso" placeholder="Ingrese el peso"
+                  id="peso">
+                <span class="form-text text-danger"
+                  *ngIf="isValidField('peso') && !readOnlyMode">Debe ser numerico entre 1 y 300kg</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <!-- temperatura -->
+              <div class="mb-3">
+                <label for="temperatura" class="form-label">Temperatura</label>
+                <input type="number"
+                  [readonly]="readOnlyMode"
+                  [attr.unselectable]="readOnlyMode ? 'on' : null"
+                  step="0.1"
+                  class="form-control"
+                  formControlName="temperatura"
+                  placeholder="Ingrese la temperatura"
+                  id="temperatura">
+                <span class="form-text text-danger"
+                  *ngIf="isValidField('temperatura') && !readOnlyMode">Debe ser numerico entre 34
+                  y 42</span>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <!-- presion -->
+              <div class="mb-3">
+                <label for="presion" class="form-label">Presion</label>
+                <input type="text"
+                  [readonly]="readOnlyMode"
+                  [attr.unselectable]="readOnlyMode ? 'on' : null"
+                  class="form-control"
+                  formControlName="presion"
+                  placeholder="Ingrese la presion"
+                  id="presion">
+                <span class="form-text text-danger"
+                  *ngIf="isValidField('presion') && !readOnlyMode">
+                  Debe en formato ***/***
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 row" *ngIf="claves.length < 3 && !readOnlyMode">
+            <!-- datos adicionales -->
+            <label class="col-sm-3 col-form-label">Datos adicionales:</label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <input class="form-control" placeholder="Agregar nombre"
+                  [formControl]="clave">
+                <input class="form-control" placeholder="Agregar valor"
+                  [formControl]="valor">
+                <button class="btn btn-outline-primary" type="button"
+                  (click)="onAddDatos()">
+                  Agregar Dato
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 row" *ngIf="datos.controls.length != 0">
+            <label class="col-sm-3 col-form-label">Datos agregados</label>
+            <div class="col-sm-9" formArrayName="datos">
+              <div class="mb-1"
+                *ngFor="let dato of datos.controls; let i = index">
+                <div class="input-group">
+                  <input value="{{claves[i]}}" class="form-control" readonly>
+                  <input value="{{dato.value[claves[i]]}}" class="form-control"
+                    readonly>
+                  <button class="btn btn-outline-danger" type="button"
+                    *ngIf="!readOnlyMode"
+                    (click)="onDeleteDatos(i)">
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3" *ngIf="!readOnlyMode">
+            <hr>
+            <button class="btn btn-success btn-block" type="submit"
+              style="font-size: 1rem;">Crear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="readOnlyMode && !historiaClinica"
+  class="alert alert-warning text-center">
+  Aun no tiene historia clinica
+</div>

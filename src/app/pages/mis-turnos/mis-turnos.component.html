@@ -97,12 +97,16 @@
 
     </div>
 
-    <div class="col-6" *ngIf="verTurnos">
+    <div class="col-8" *ngIf="verTurnos">
       <app-tabla-turnos [lista]="turnosFiltrados | ordenarTurnos:'fecha'"
         (opcion)="getTurno($event)"></app-tabla-turnos>
     </div>
+    <div class="col-8" *ngIf="verHistoria">
+      <app-form-historia-clinica [paciente]="miTurno!.paciente" (salidaHistoria)="crearHistoriaClinica($event)"
+      ></app-form-historia-clinica>
+    </div>
 
-    <div class="col-6" *ngIf="miTurno">
+    <div class="col-4" *ngIf="miTurno">
       <div class="card card-turno">
         <div class="card-body card-turno">
           <div class="row">
@@ -223,6 +227,12 @@
             Finalizar
           </button>
 
+          <button class="btn btn-info m-2"
+            *ngIf="usuario.Rol == 'especialista' && miTurno.estado == 'aceptado' && !historiaCreada"
+            (click)="historia()">
+           {{verHistoria ? 'ocultar historia' : 'ver historia'}}
+          </button>
+
           <button class="btn btn-success m-2"
             *ngIf="!miTurno.encuesta.accesoTiemposEspera && usuario.Rol == 'paciente' && miTurno.estado == 'finalizado'"
             (click)="encuesta()">
@@ -242,3 +252,4 @@
     </div>
   </div>
 </div>
+

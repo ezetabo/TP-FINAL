@@ -39,7 +39,9 @@ const routes: Routes = [
 
 
 
-
+  // {
+  //   path: '', component: FormHistoriaClinicaComponent
+  // }
   // {
   //   path:'', loadChildren: () => import('./pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule),
   // }

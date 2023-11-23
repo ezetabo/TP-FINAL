@@ -10,6 +10,10 @@ export class ValidatorsService {
   public numberPattern: string = '^[0-9]+$';
   public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}";
   public dniPattern: string = '^[0-9]{6,9}$';
+  public presionPattern: string = '^[0-9]{2,3}/[0-9]{2,3}$';
+  public decimalPattern: string = '^[0-9]+(\.[0-9]+)?$';
+
+
 
 
   constructor() { }

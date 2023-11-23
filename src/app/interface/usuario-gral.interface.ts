@@ -26,6 +26,9 @@ export interface Paciente{
   id: string;
   Nombre: string;
   Apellido: string;
+  Edad: number;
+  Email: string;
   Imagen: string;
   Imagen2: string;
+  ObraSocial: string;
 }

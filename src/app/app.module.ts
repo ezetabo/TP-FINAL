@@ -23,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     provideFirestore(() => getFirestore()),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
