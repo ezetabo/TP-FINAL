@@ -1,109 +1,20 @@
+
+
 <div class="container">
-  <div class="row " *ngIf="turnos.length > 0">
-    <div class="container">
-      <div class="row align-items-md-stretch p-5">
-
-        <div class="col-md-6 especialista" *ngIf="usuario.Rol !='especialista'">
-          <div
-            class="card mx-auto d-flex justify-content-center align-items-center p-2"
-            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-            <div class="card-body">
-              <label>
-                <img class="imagenes"
-                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2FespecialistaGral_1699919045368?alt=media&token=102f2577-3a45-4fc0-9af5-bafbc4dbe0a9"
-                  alt
-                  (click)="filtrar('especialista')">
-              </label>
-            </div>
-            <b><span>Especialistas</span></b>
-          </div>
-        </div>
-
-        <div class="col-md-6 paciente" *ngIf="usuario.Rol =='especialista'">
-          <div
-            class="card mx-auto d-flex justify-content-center align-items-center p-2"
-            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-            <div class="card-body">
-              <label>
-                <img class="imagenes"
-                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fpersonas_1699644430500?alt=media&token=4cf1f2f8-6b05-460c-b897-45de8324b8f8"
-                  alt
-                  (click)="filtrar('paciente')">
-              </label>
-            </div>
-            <b><span>Pacientes</span></b>
-          </div>
-        </div>
-
-        <div class="col-md-6 especialidades">
-          <div
-            class="card mx-auto d-flex justify-content-center align-items-center p-2"
-            style="width: 18rem; background-color: rgb(220, 243, 245); border-radius: 5%;">
-            <div class="card-body">
-              <label>
-                <img class="imagenes"
-                  src="https://firebasestorage.googleapis.com/v0/b/tp-final-taboada2023.appspot.com/o/MRKDWN%2Fespecialidades_1699919064354?alt=media&token=e011b886-196c-434d-8cce-b9c9ee5877eb"
-                  alt
-                  (click)="filtrar('especialidad')">
-              </label>
-            </div>
-            <b><span>Especialidades</span></b>
-          </div>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="filtro=='especialidad'">
-        <div class="col-12 text-center">
-          <hr>
-          <button
-            *ngFor="let tipo of turnos | filtrarUnicoTurno:'especialidad' | ordenarTurnos: 'especialidad'"
-            class="btn btn-primary m-2"
-            (click)="filtrarPorEspecialidad(tipo)">
-            {{tipo.especialidad| cFL}}
-          </button>
-          <hr>
-        </div>
-      </div>
-
-      <div class="row"
-        *ngIf="filtro=='especialista' && usuario.Rol != 'especialista'">
-        <div class="col-12 text-center">
-          <hr>
-          <button
-            *ngFor="let tipo of turnos |filtrarUnicoTurno:'especialista' | ordenarTurnos: 'especialista' "
-            class="btn btn-primary m-2"
-            (click)="filtrarPorEspecialista(tipo)">
-            {{tipo.especialista.Apellido | cFL}}
-            {{tipo.especialista.Nombre|cFL}}
-          </button>
-          <hr>
-        </div>
-      </div>
-
-      <div class="row"
-        *ngIf="filtro=='paciente' && usuario.Rol == 'especialista'">
-        <div class="col-12 text-center">
-          <hr>
-          <button
-            *ngFor="let tipo of turnos |filtrarUnicoTurno:'paciente' | ordenarTurnos: 'paciente' "
-            class="btn btn-primary m-2"
-            (click)="filtrarPorPaciente(tipo)">
-            {{tipo.paciente.Apellido | cFL}}
-            {{tipo.paciente.Nombre|cFL}}
-          </button>
-          <hr>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-8" *ngIf="verTurnos">
+  <div class="row">
+    <div class="col12">
+    <input class="m-2" type="text" (input)="filtrarTurnos($event)"
+      placeholder="Buscar coincidencia de ...">
+</div>
+    <div class="col-8" *ngIf="!verHistoria">
       <app-tabla-turnos [lista]="turnosFiltrados | ordenarTurnos:'fecha'"
-        (opcion)="getTurno($event)"></app-tabla-turnos>
+        (opcion)="getTurno($event)"
+        [mensaje]="'No hay coincidencias'">
+      </app-tabla-turnos>
     </div>
     <div class="col-8" *ngIf="verHistoria">
-      <app-form-historia-clinica [paciente]="miTurno!.paciente" (salidaHistoria)="crearHistoriaClinica($event)"
-      ></app-form-historia-clinica>
+      <app-form-historia-clinica [paciente]="miTurno!.paciente"
+        (salidaHistoria)="crearHistoriaClinica($event)"></app-form-historia-clinica>
     </div>
 
     <div class="col-4" *ngIf="miTurno">
@@ -187,13 +98,16 @@
             <label for="area2"><h5>Encuesta:</h5></label>
             <ul>
               <li>
-                <label for="area2"><b>Experiencia General: </b><br> {{miTurno.encuesta.experienciaGeneral}} </label>
+                <label for="area2"><b>Experiencia General: </b><br>
+                  {{miTurno.encuesta.experienciaGeneral}} </label>
               </li>
               <li>
-                <label for="area2"><b>Acceso y Tiempos de Espera: </b> <br>{{miTurno.encuesta.accesoTiemposEspera}} </label>
+                <label for="area2"><b>Acceso y Tiempos de Espera: </b> <br>{{miTurno.encuesta.accesoTiemposEspera}}
+                </label>
               </li>
               <li>
-                <label for="area2"><b>Sugerencias: </b> <br>{{miTurno.encuesta.sugerencias}} </label>
+                <label for="area2"><b>Sugerencias: </b> <br>{{miTurno.encuesta.sugerencias}}
+                </label>
               </li>
             </ul>
 
@@ -210,7 +124,7 @@
 
           <button class="btn btn-danger m-2"
             *ngIf="(usuario.Rol == 'paciente' && (miTurno.estado != 'finalizado' &&  miTurno.estado != 'vencido' )
-          || (usuario.Rol != 'paciente' && miTurno.estado == 'pendiente' ))"
+          || (usuario.Rol != 'paciente' && miTurno.estado == 'aceptado' ))"
             (click)="cancelar()">
             Cancelar
           </button>
@@ -230,7 +144,7 @@
           <button class="btn btn-info m-2"
             *ngIf="usuario.Rol == 'especialista' && miTurno.estado == 'aceptado' && !historiaCreada"
             (click)="historia()">
-           {{verHistoria ? 'ocultar historia' : 'ver historia'}}
+            {{verHistoria ? 'ocultar historia' : 'ver historia'}}
           </button>
 
           <button class="btn btn-success m-2"
@@ -252,4 +166,3 @@
     </div>
   </div>
 </div>
-

@@ -4,7 +4,8 @@ import { HorariosEspecialistaComponent } from './horarios-especialista.component
 
 const routes: Routes = [
   {
-    path:'', component: HorariosEspecialistaComponent
+    path:'', component: HorariosEspecialistaComponent,
+    data: { animation: '* <=> *' }
   }
 ];
 

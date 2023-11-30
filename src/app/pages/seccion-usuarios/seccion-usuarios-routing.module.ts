@@ -4,7 +4,8 @@ import { SeccionUsuariosComponent } from './seccion-usuarios.component';
 
 const routes: Routes = [
   {
-    path:'', component: SeccionUsuariosComponent
+    path:'', component: SeccionUsuariosComponent,
+    data: { animation: '* <=> *' }
   }
 ];
 

@@ -1,4 +1,5 @@
 import { CronogramaAtencion } from "../interface/cronograma-atencion.interface";
+import { HistoriaClinica } from "../interface/historia-clinica.interface";
 import { CronogramaEspecialista, Dia, Fecha, Hora } from "../interface/horario-laboral.interface";
 import { Lista } from "../interface/listas.interface";
 import { UsuarioGral } from "../interface/usuario-gral.interface";
@@ -177,7 +178,14 @@ export function parsearFecha(fechaString: string): Date {
   return fechaParseada;
 }
 
+export function obtenerUltimaHistoria(historias: HistoriaClinica[]): HistoriaClinica {
 
+  if (historias.length > 1) {
+    const historiasOrdenadas = historias.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+    return historiasOrdenadas[0];
+  }
+  return historias[0];
+}
 
 export function crearRotador(array: any[]) {
   let currentIndex = 0;

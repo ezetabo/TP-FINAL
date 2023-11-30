@@ -1,5 +1,5 @@
 <div class="table-container">
-  <div *ngIf="lista.length === 0; else table"
+  <div *ngIf="lista.length === 0 && verMsj; else table"
     class="alert alert-warning text-center">
     {{mensaje}}
   </div>

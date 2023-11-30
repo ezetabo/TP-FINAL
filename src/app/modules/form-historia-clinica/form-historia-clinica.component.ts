@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Datos, HistoriaClinica } from 'src/app/interface/historia-clinica.interface';
 import { Paciente } from 'src/app/interface/usuario-gral.interface';
 import { HistoriaClinicaDBService } from 'src/app/service/historiaClincaDB.service';
+import { obtenerUltimaHistoria } from 'src/app/utils/listas';
 import { ValidatorsService } from 'src/app/validators/validators.service';
 
 @Component({
@@ -13,8 +14,10 @@ import { ValidatorsService } from 'src/app/validators/validators.service';
 export class FormHistoriaClinicaComponent implements OnInit {
 
   @Input() readOnlyMode: boolean = false;
+  @Input() verPerfil: boolean = false;
   @Input() paciente: Paciente | null = null;
   @Output() salidaHistoria = new EventEmitter<HistoriaClinica>();
+  @Output() ver = new EventEmitter<boolean>();
 
   public historiaClinica: HistoriaClinica | null = null;
   public clave: FormControl = new FormControl('', [Validators.required]);
@@ -26,17 +29,25 @@ export class FormHistoriaClinicaComponent implements OnInit {
     peso: ['', [Validators.required, Validators.pattern(this.vs.decimalPattern), Validators.min(1), Validators.max(300)]],
     temperatura: ['', [Validators.required, Validators.pattern(this.vs.decimalPattern), Validators.min(35), Validators.max(42)]],
     presion: ['', [Validators.required, Validators.pattern(this.vs.presionPattern)]],
-    datos: this.fb.array([], [Validators.maxLength(3)])
+    datos: this.fb.array([], [Validators.maxLength(3)]),
+    paciente:[],
+    fecha:[],
   });
 
   constructor(private fb: FormBuilder, private vs: ValidatorsService, private hcDB: HistoriaClinicaDBService) { }
 
   ngOnInit(): void {
 
-    this.hcDB.getDatoPorId(this.paciente!).then(his=>{
-      if(his){
-        this.historiaClinica =his;
-        this.myForm.setValue(this.historiaClinica);
+    this.hcDB.getDatoPorId(this.paciente!).then(his => {
+      if (his) {
+        console.log(his);
+
+        this.historiaClinica = obtenerUltimaHistoria(his);
+        console.log(this.historiaClinica);
+
+        if (this.historiaClinica) {
+          this.myForm.setValue(this.historiaClinica);
+        }
       }
     })
 
@@ -94,4 +105,7 @@ export class FormHistoriaClinicaComponent implements OnInit {
     this.myForm.reset();
   }
 
+  verHistoria(){
+    this.ver.emit(false);
+  }
 }

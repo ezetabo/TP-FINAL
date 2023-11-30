@@ -6,8 +6,11 @@
           <div class="profile mr-3">
             <img [src]="usuario.Imagen" alt="..."
               class="rounded mb-2 img-thumbnail foto"><a routerLink="/home/cargar-horario"
-              class="btn btn-info btn-sm btn-block float-end"
+              class="btn btn-info btn-sm btn-block m-2 float-end"
               *ngIf="usuario.Rol=='especialista'">Mis horarios</a>
+              <a (click)="descargarPdf()"
+              class="btn btn-info btn-sm btn-block m-2 float-end"
+              *ngIf="usuario.Rol=='especialista'">Mis Atenciones</a>
               <a
               class="btn btn-info btn-sm btn-block float-end"
               (click)="verHistoria()"
@@ -67,4 +70,4 @@
 </div>
 <app-spinner *ngIf="!ver" ></app-spinner>
 
-<app-form-historia-clinica *ngIf="historia" [paciente]="paciente" [readOnlyMode]="true"></app-form-historia-clinica>
+<app-form-historia-clinica *ngIf="historia" [paciente]="paciente" [readOnlyMode]="true" (ver)="historia = $event" [verPerfil]="usuario.Rol == 'paciente'"></app-form-historia-clinica>

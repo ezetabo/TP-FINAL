@@ -48,6 +48,7 @@ export class MisTurnosComponent implements OnInit {
   cargarTurnos() {
     this.trnServ.getData(this.usuario).subscribe(x => {
       this.turnos = x;
+      this.turnosFiltrados = this.turnos;
     });
   }
 
@@ -158,7 +159,7 @@ export class MisTurnosComponent implements OnInit {
           timer: 1500
         });
       }
-    }else{
+    } else {
       Swal.fire({
         position: "center",
         icon: "warning",
@@ -327,4 +328,43 @@ export class MisTurnosComponent implements OnInit {
       });
     }
   }
+
+
+   buscarEnObjeto(objeto: any, valor: string): boolean {
+    for (const key in objeto) {
+      if (
+        Object.prototype.hasOwnProperty.call(objeto, key) &&
+        key !== 'Imagen' &&
+        key !== 'Imagen2'
+      ) {
+        const field = objeto[key];
+        if (typeof field === 'object') {
+          if (this.buscarEnObjeto(field, valor)) {
+            return true;
+          }
+        } else if (field.toString().toLowerCase().includes(valor.toLowerCase())) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+  filtrarTurnos(event: Event) {
+    this.miTurno = null;
+    this.verTurnos = true;
+    if (event.target instanceof HTMLInputElement) {
+      const valor = event.target.value;
+        this.turnosFiltrados = this.turnos.filter(turno =>
+          Object.values(turno).some(field =>
+            typeof field === 'object'
+              ? this.buscarEnObjeto(field, valor)
+              : field.toString().toLowerCase().includes(valor.toLowerCase())
+          )
+        );
+    }
+
+  }
+
 }

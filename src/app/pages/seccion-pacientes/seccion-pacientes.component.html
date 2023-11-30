@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div class="d-flex flex-wrap">
+        <div
+          *ngFor="let trn of turnos | filtrarUnicoTurno:'paciente' | ordenarTurnos: 'paciente'"
+          class="p-5" style="max-width: 250px;">
+          <div class="d-flex flex-column align-items-center" *ngIf="trn">
+            <button class="favbtn"
+              [style.background-image]="'url(' + trn.paciente.Imagen + ')'"
+              (click)="verTurnos(trn)"></button>
+            <label for>{{ trn.paciente | nombreCompleto }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="d-flex flex-column align-items-center mb-3"
+        *ngIf="turnosFiltrados.length > 0">
+        <div *ngFor="let miTurno of turnosFiltrados">
+          <div class="card card-turno m-2 ">
+            <div class="card-body card-turno">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <h5 class="card-title"><b>{{miTurno.dia}} {{miTurno.fecha}} a
+                      las
+                      {{miTurno.hora}}hs</b></h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <p class="alineacion-derecha">paciente: <i>{{miTurno.paciente.Apellido
+                      | cFL}}, {{miTurno.paciente.Nombre | cFL}}</i></p>
+                </div>
+                <div class="col-12">
+                  <p class="card-text">profesional: <b>{{miTurno.especialista.Apellido|cFL}},
+                      {{miTurno.especialista.Nombre | cFL}}</b></p>
+                  <p>especialidad: <b>{{miTurno.especialidad | cFL}}</b></p>
+                </div>
+              </div>
+            </div>
+
+            <ul class="list-group list-group-flush card-turno  ">
+
+              <li class="list-group-item card-turno  "
+                *ngIf="miTurno.resenia">
+                <label for="txtArea">Reseña: </label>
+                <textarea id="txtArea card-turno" [(ngModel)]="miTurno.resenia"
+                  disabled
+                  rows="4" style="width: 100%; resize: vertical;">{{miTurno.resenia}}</textarea>
+              </li>
+
+              <li class="list-group-item card-turno  "
+                *ngIf="miTurno.diagnostico">
+                <label for="txtArea">Diagnostico: </label>
+                <textarea id="txtArea card-turno"
+                  disabled
+                  rows="4" style="width: 100%; resize: vertical;">{{miTurno.diagnostico}}</textarea>
+              </li>
+
+              <li class="list-group-item card-turno"
+                *ngIf="miTurno.comentario">
+                <label for="area2">Comentarios:</label>
+                <textarea id="txtArea area2 card-turno"
+                  disabled
+                  rows="4" style="width: 100%; resize: vertical;">{{miTurno.comentario}}</textarea>
+              </li>
+
+            </ul>
+            <div class="card-body card-turno">
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,12 +9,17 @@
         (click)="searchByTipo(tipo)">
         {{tipo}}
       </button>
+      <button
+        class="btn btn-info"
+        (click)="descargarTodos()">
+        Descargar Todos
+      </button>
       <hr>
     </div>
   </div>
   <div >
-    <app-tabla [lista]="usuarios" [tipo]="selectedTipo!" [verDescargar]="true"
-      (autorizar)="getUsuario($event)"></app-tabla>
+    <app-cards-usuarios [lista]="filtrados" [tipo]="selectedTipo!" [activarDescarga]="true"
+      (autorizar)="getUsuario($event)"></app-cards-usuarios>
   </div>
 
 

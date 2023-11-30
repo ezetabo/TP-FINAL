@@ -10,6 +10,7 @@ export class TablaTurnosComponent {
   @Output() public opcion = new EventEmitter<Turno>();
   @Input() lista: Turno[] = [];
   @Input() mensaje: string = '';
+  @Input() verMsj: boolean = true;
 
   getRowClass(index: number) {
     return index % 2 == 0 ? 'even-row' : 'odd-row';

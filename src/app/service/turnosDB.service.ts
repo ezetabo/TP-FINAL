@@ -28,7 +28,7 @@ export class TurnosDBService {
           .map(change => change.doc.data() as Turno)
           .filter(one => this.cumpleCondiciones(one, user));
         turnos.forEach(turno => {
-          if (esFechaVieja(turno.fecha)) {
+          if ((turno.estado == 'aceptado' || turno.estado == 'pendiente') && esFechaVieja(turno.fecha)) {
             turno.estado = Estado.vencido;
           }
         });
@@ -49,6 +49,11 @@ export class TurnosDBService {
     return new Observable<Turno[]>((observer) => {
       onSnapshot(this.dataRef, (snap) => {
         const turnos: Turno[] = snap.docs.map(doc => doc.data() as Turno);
+        turnos.forEach(turno => {
+          if ((turno.estado == 'aceptado' || turno.estado == 'pendiente') && esFechaVieja(turno.fecha)) {
+            turno.estado = Estado.vencido;
+          }
+        });
         observer.next(turnos);
       });
     });

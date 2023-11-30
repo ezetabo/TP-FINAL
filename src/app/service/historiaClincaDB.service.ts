@@ -14,10 +14,29 @@ export class HistoriaClinicaDBService {
 
   constructor(private fs: Firestore) { }
 
-  addData(newData: HistoriaClinica) {
+  // addData(newData: HistoriaClinica) {
+  //   const docs = doc(this.dataRef, newData.paciente.id);
+  //   setDoc(docs, newData);
+  // }
+
+  async addData(newData: HistoriaClinica): Promise<void> {
+    newData.fecha = new Date().toLocaleString();
     const docs = doc(this.dataRef, newData.paciente.id);
-    setDoc(docs, newData);
+
+    const docSnap = await getDoc(docs);
+    if (docSnap.exists()) {
+      const historiasActuales = docSnap.data()['historias'] || [];
+      historiasActuales.push(newData);
+      await updateDoc(docs, {
+        historias: historiasActuales
+      });
+    } else {
+      await setDoc(docs, {
+        historias: [newData]
+      });
+    }
   }
+
 
   getAllData(): Observable<HistoriaClinica[]> {
     return new Observable<HistoriaClinica[]>((observer) => {
@@ -28,12 +47,12 @@ export class HistoriaClinicaDBService {
     });
   }
 
-  getDatoPorId(pac: Paciente): Promise<HistoriaClinica | null> {
+  getDatoPorId(pac: Paciente): Promise<HistoriaClinica[] | null> {
     const docs = doc(this.dataRef, pac.id);
     return getDoc(docs)
       .then((docSnap) => {
         if (docSnap.exists()) {
-          const dato = docSnap.data() as HistoriaClinica;
+          const dato = docSnap.data()['historias'] as HistoriaClinica[];
           return dato;
         } else {
           return null;
@@ -42,19 +61,19 @@ export class HistoriaClinicaDBService {
   }
 
   modificar(historia: HistoriaClinica) {
-    const docs = doc(this.dataRef, historia.id);
+    const docs = doc(this.dataRef, historia.paciente.id);
     updateDoc(docs, {
       altura: historia.altura,
       peso: historia.peso,
       temperatura: historia.temperatura,
-      presion:historia.presion,
+      presion: historia.presion,
       datos: historia.datos
     });
 
   }
 
   borrar(dato: HistoriaClinica) {
-    const docs = doc(this.dataRef, dato.id);
+    const docs = doc(this.dataRef, dato.paciente.id);
     deleteDoc(docs);
   }
 

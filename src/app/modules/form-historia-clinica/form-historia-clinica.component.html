@@ -3,9 +3,13 @@
   <div class="col-md-9 p-3"
     style="background-color: rgb(220, 245, 243); border-radius: 2%;">
     <h2 class="text-center"><b>Historia Clinica</b></h2>
+    <a
+    *ngIf="verPerfil"
+    class="btn btn-info btn-sm btn-block float-end"
+    (click)="verHistoria()">Mi perfil</a>
     <img class="imagen" [src]="paciente!.Imagen" alt>
     <h2 style="font-size: 1.5rem;">Paciente: <i>{{paciente!.Nombre | cFL}}
-        {{paciente!.Apellido | cFL}} </i></h2>
+        {{paciente!.Apellido | cFL}} </i> <span class="float-end">{{historiaClinica!.fecha}}</span></h2>
     <hr>
     <div class="row">
       <div class="col-12">

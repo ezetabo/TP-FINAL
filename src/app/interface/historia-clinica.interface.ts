@@ -1,15 +1,15 @@
 import { Paciente } from "./usuario-gral.interface";
 
 export interface HistoriaClinica {
-  id: string;
-  paciente:Paciente
+  fecha: string;
+  paciente: Paciente
   altura: number;
   peso: number;
   temperatura: number;
-  presion:string;
+  presion: string;
   datos: Datos[];
 }
 
-export interface Datos{
+export interface Datos {
   [clave: string]: string;
 }

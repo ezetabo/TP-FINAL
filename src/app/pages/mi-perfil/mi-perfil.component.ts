@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioGral } from 'src/app/interface/usuario-gral.interface';
 import { MensajeroService } from 'src/app/service/mensajero.service';
 import { Paciente } from '../../interface/usuario-gral.interface';
+import { PdfService } from 'src/app/service/pdf-service.service';
+import { Turno } from 'src/app/interface/turno.interface';
+import { TurnosDBService } from 'src/app/service/turnosDB.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -13,6 +16,7 @@ export class MiPerfilComponent implements OnInit {
   public historia: boolean = false;
   public ver: boolean = false;
   public paciente: Paciente | null = null;
+  public turnos: Turno[] = [];
   public usuario: UsuarioGral = {
     id: 'lSsjyfvFWMBdRmKknZMq',
     Nombre: 'Samara',
@@ -55,10 +59,13 @@ export class MiPerfilComponent implements OnInit {
     ObraSocial: 'ELEVAR',
   }
 
-  constructor(private mnsj: MensajeroService) { }
+  constructor(private mnsj: MensajeroService, private trnServ: TurnosDBService, private pdf: PdfService) { }
 
   ngOnInit(): void {
     this.usuario = this.mnsj.getCurrentUser();
+    this.trnServ.getAllData().subscribe(x => {
+      this.turnos = x;
+    });
     if (this.usuario.Rol == 'paciente') {
       this.paciente = {
         id: this.usuario.id,
@@ -70,6 +77,7 @@ export class MiPerfilComponent implements OnInit {
         Email: this.usuario.Email,
         ObraSocial: this.usuario.ObraSocial
       }
+
     }
     setTimeout(() => {
       this.ver = true;
@@ -78,5 +86,10 @@ export class MiPerfilComponent implements OnInit {
 
   verHistoria() {
     this.historia = !this.historia;
+  }
+
+  descargarPdf() {
+    const misTurnos : Turno[] = this.turnos.filter(t => t.especialista.id == this.usuario.id);
+    this.pdf.descargarAtencionesPdf(misTurnos);
   }
 }

@@ -4,7 +4,8 @@ import { MisTurnosComponent } from './mis-turnos.component';
 
 const routes: Routes = [
   {
-    path: '', component: MisTurnosComponent
+    path: '', component: MisTurnosComponent,
+    data: { animation: '* <=> *' }
   }
 ];
 

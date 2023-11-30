@@ -4,7 +4,8 @@ import { RegistroComponent } from './registro.component';
 
 const routes: Routes = [
   {
-    path:'', component: RegistroComponent
+    path:'', component: RegistroComponent,
+    data: { animation: '* <=> *' }
   }
 ];
 

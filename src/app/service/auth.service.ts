@@ -15,7 +15,7 @@ export class AuthService {
   async registerUser(email: string, password: string): Promise<any> {
     return await this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(res => {
-        res.user?.sendEmailVerification();
+        res.user!.sendEmailVerification();
         return res.user
       })
       .catch(() => { return false });

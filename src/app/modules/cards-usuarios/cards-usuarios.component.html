@@ -1,0 +1,62 @@
+<div class="card-container">
+  <div *ngIf="lista.length === 0; else card">
+    <div class="alert alert-warning text-center">
+      {{mensaje}}
+    </div>
+  </div>
+  <ng-template #card>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+      <div class="col" *ngFor="let usuario of lista | ordenarUsuariosGral; let i = index" (click)="getOpcion(usuario)">
+        <div class="card h-100 shadow rounded overflow-hidden">
+          <div class="px-4 pt-0 pb-4 bg-dark">
+            <div class="media align-items-end profile-header">
+              <div class="profile mr-3">
+                <img [src]="usuario.Imagen" alt="..." class="rounded mb-2 img-thumbnail foto">
+              </div>
+              <div class="media-body mb-5 text-white">
+                <h4 class="mt-0 mb-0">{{usuario.Nombre | cFL}} {{usuario.Apellido | cFL}}</h4>
+                <p class="small mb-4"><i class="fa fa-user mr-2 mb-4"></i>{{usuario.Rol}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-light p-4 d-flex justify-content-end text-center">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <small class="text-muted"><i class="fa fa-envelope mr-1"></i>{{usuario.Email}}</small>
+              </li>
+            </ul>
+          </div>
+          <div class="px-4">
+            <div class="py-4">
+              <h5 class="mb-3">Datos adicionales</h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <span class="text-muted"><b>Edad: </b><i>{{usuario.Edad}}</i></span>
+                </li>
+                <li class="mb-2">
+                  <span class="text-muted"><b>DNI: </b><i>{{usuario.Dni}}</i></span>
+                </li>
+                <li class="mb-2" *ngIf="usuario.Rol == 'paciente'">
+                  <span class="text-muted"><b>Obra social: </b><i>{{usuario.ObraSocial}}</i></span>
+                </li>
+                <li class="mb-2" *ngIf="usuario.Rol == 'paciente'">
+                  <span class="text-muted"><b>Credencial: </b><img class="imagen" [src]="usuario.Imagen2" alt></span>
+                </li>
+              </ul>
+              <div class="row mt-2" *ngIf="usuario.Rol=='especialista'">
+                <div class="col">
+                  <h5>Especialidades: </h5>
+                  <div class="d-flex flex-wrap">
+                    <div *ngFor="let esp of usuario.Especialidades">
+                      <span class="badge bg-primary m-1"><i>{{esp}}</i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

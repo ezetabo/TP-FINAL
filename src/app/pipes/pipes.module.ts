@@ -12,6 +12,7 @@ import { HoraFormatPipe } from './hora-format.pipe';
 import { OrdenarStringsPipe } from './ordenar-strings.pipe';
 import { OrdenarTurnosPipe } from './ordenar-turnos.pipe';
 import { FiltrarUnicoTurnoPipe } from './filtrar-unico-turno.pipe';
+import { NombreCompletoPipe } from './nombre-completo.pipe';
 
 
 
@@ -28,7 +29,8 @@ import { FiltrarUnicoTurnoPipe } from './filtrar-unico-turno.pipe';
     HoraFormatPipe,
     OrdenarStringsPipe,
     OrdenarTurnosPipe,
-    FiltrarUnicoTurnoPipe
+    FiltrarUnicoTurnoPipe,
+    NombreCompletoPipe
   ],
   imports: [
     CommonModule
@@ -46,6 +48,7 @@ import { FiltrarUnicoTurnoPipe } from './filtrar-unico-turno.pipe';
     OrdenarStringsPipe,
     OrdenarTurnosPipe,
     FiltrarUnicoTurnoPipe,
+    NombreCompletoPipe
   ]
 })
 export class PipesModule { }
